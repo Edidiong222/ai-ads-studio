@@ -18,8 +18,8 @@
     <title>Create Ad</title>
   </head>
   <body class="flex items-center justify-center bg-blue-100">
-    <div class="flex mt-40">
-      <div class="p-5 rounded-2xl bg-white mr-5">
+    <div class="grid grid-cols-2 gap-6 w-full max-sm:grid-cols-1">
+      <div class="p-5 rounded-2xl bg-white border border-gray-200 shadow-sm">
         <form>
           <div class="flex">
             <h1 class="font-bold flex items-center justify-center">
@@ -30,26 +30,72 @@
             <p>Describe your product. AI will craft variants.</p>
           </div>
           <div class="mb-4">
-            <label for="prod-service" class="font-semibold text-sm ">Product/service</label><br />
-            <input type="text" class="border border-gray-200 font-semibold text-sm rounded-md pl-3 py-2 w-70 focus:outline-blue-500 shadow-sm"  name="prod-service" id="prod-service" placeholder="e.g. Lightweight running snickers"/>
+            <label for="prod-service" class="font-semibold text-sm"
+              >Product/service</label
+            ><br />
+            <input
+              type="text"
+              class="border border-gray-200 font-semibold text-sm rounded-md pl-3 py-2 w-full focus:outline-blue-500 shadow-sm"
+              name="prod-service"
+              id="prod-service"
+              placeholder="e.g. Lightweight running snickers"
+            />
           </div>
-          <div  class="mb-4">
-            <label for="audience" class="font-semibold text-sm ">Target audience</label><br />
-            <input type="text" class="border border-gray-200 font-semibold text-sm rounded-md pl-3 py-2 w-70 focus:outline-blue-500 shadow-sm" name="audience" id="audience" placeholder="e.g. Urban commuters aged 25-40" />
+          <div class="mb-4">
+            <label for="audience" class="font-semibold text-sm"
+              >Target audience</label
+            ><br />
+            <input
+              type="text"
+              class="border border-gray-200 font-semibold text-sm rounded-md pl-3 py-2 w-full focus:outline-blue-500 shadow-sm"
+              name="audience"
+              id="audience"
+              placeholder="e.g. Urban commuters aged 25-40"
+            />
           </div>
-          <div class="grid grid-cols-2">
+          <div class="grid grid-cols-2 gap-3">
             <div>
-              <label for="tone" class="font-semibold text-sm ">Tone</label><br />
-              <select name="tone" id="tone" class="border border-gray-200 font-semibold text-sm rounded-md pl-3 py-2 w-32 focus:outline-blue-500 shadow-sm">
-                <option value="friendly" class="active: bg-blue-100 hover:bg-blue-100 cursor-pointer">Friendly</option>
-                <option value="playful" class="active: bg-blue-100 hover:bg-blue-100 cursor-pointer">Playful</option>
-                <option value="stylish" class="active: bg-blue-100 hover:bg-blue-100 cursor-pointer">Stylish</option>
-                <option value="bold" class="active: bg-blue-100 hover:bg-blue-100 cursor-pointer">Bold</option>
+              <label for="tone" class="font-semibold text-sm">Tone</label><br />
+              <select
+                name="tone"
+                id="tone"
+                class="border border-gray-200 cursor-pointer font-semibold text-sm rounded-md pl-3 py-2 w-full focus:outline-blue-500 shadow-sm"
+              >
+                <option
+                  value="friendly"
+                  class="active: bg-blue-100 hover:bg-blue-100 cursor-pointer"
+                >
+                  Friendly
+                </option>
+                <option
+                  value="playful"
+                  class="active: bg-blue-100 hover:bg-blue-100 cursor-pointer"
+                >
+                  Playful
+                </option>
+                <option
+                  value="stylish"
+                  class="active: bg-blue-100 hover:bg-blue-100 cursor-pointer"
+                >
+                  Stylish
+                </option>
+                <option
+                  value="bold"
+                  class="active: bg-blue-100 hover:bg-blue-100 cursor-pointer"
+                >
+                  Bold
+                </option>
               </select>
             </div>
             <div>
-              <label for="platform" class="font-semibold text-sm ">Platform</label><br />
-              <select name="platform" id="platform" class="border border-gray-200 font-semibold text-sm rounded-md pl-3 py-2 w-32 focus:outline-blue-500 shadow-sm">
+              <label for="platform" class="font-semibold text-sm"
+                >Platform</label
+              ><br />
+              <select
+                name="platform"
+                id="platform"
+                class="border border-gray-200 cursor-pointer font-semibold text-sm rounded-md pl-3 py-2 w-full focus:outline-blue-500 shadow-sm"
+              >
                 <option value="friendly">Meta</option>
                 <option value="tiktok">Tiktok</option>
                 <option value="linkedin">LinkedIn</option>
@@ -57,19 +103,31 @@
               </select>
             </div>
           </div>
-          <div>
-            <label for="key-message" class="font-semibold text-sm ">Key Message (optional)</label><br />
-            <textarea name="key-message" id="key-message" class="border border-gray-200 font-semibold text-sm rounded-md pl-3 py-2 w-70 focus:outline-blue-500 shadow-sm"></textarea>
+          <div class="my-2">
+            <label for="key-message" class="font-semibold text-sm"
+              >Key Message (optional)</label
+            ><br />
+            <textarea
+              name="key-message"
+              placeholder="Highlight the core benefit or offer..."
+              id="key-message"
+              class="border border-gray-200 font-semibold text-sm rounded-md pl-3 py-2 w-full focus:outline-blue-500 shadow-sm"
+            ></textarea>
           </div>
+          <input
+            type="button"
+            value="Generate ads"
+            class="cursor-pointer hover:bg-blue-800 bg-blue-700 text-gray-100 font-semibold text-sm rounded-md pl-3 py-2 w-full focus:outline-blue-500 shadow-md"
+          />
         </form>
       </div>
-      <div class="">
-        <h1 class="font-bold mb-5">Generated variants</h1>
+      <div class="grid grid-cols-1 grid-rows-[1fr_6fr_3fr]">
+        <h1 class="font-bold">Generated variants</h1>
         <div
-          class="bg-white flex items-center justify-center px-30 py-15 rounded-2xl"
+          class="bg-white border border-gray-200 shadow-sm flex items-center justify-center rounded-2xl"
         >
-          <div class="w-62">
-            <div class="flex items-center justify-center">
+          <div class="w-full">
+            <div class="flex items-center justify-center w-full">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -78,7 +136,7 @@
                 width="35px"
                 height="35px"
                 style="border-radius: 2em"
-                class="bg-blue-600 text-white p-1"
+                class="bg-blue-600 text-white p-1 min-w-[35px]"
               >
                 <path
                   fillRule="evenodd"
@@ -87,11 +145,16 @@
                 />
               </svg>
             </div>
-            <h3 class="flex items-center justify-center font-bold">
+            <h3 class="flex items-center w-full justify-center font-bold">
               No ads yet
             </h3>
-            <p>Fill in the brief and hit "generate"</p>
+            <p class="flex items-center justify-center w-full">
+              Fill in the brief and hit "generate"
+            </p>
           </div>
+        </div>
+        <div class="">
+          <p></p>
         </div>
       </div>
     </div>
