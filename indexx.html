@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Notification</title>
+</head>
+
+<body class="bg-white font-['Poppins']">
+
+<section class="notification max-w-6xl mx-auto px-4 md:px-8 py-5">
+
+    <div class="inbox">
+
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+
+            <div>
+                <div class="inbox-note flex items-center gap-3">
+                    <h3 class="text-[26px] font-bold text-gray-900">Inbox</h3>
+
+                    <div class="bg-blue-600 text-white text-sm px-3 py-1 rounded-full font-medium">
+                        3 new
+                    </div>
+                </div>
+
+                <p class="text-gray-500 text-sm md:text-base mt-2">
+                    Stay on top of campaign updates, performance alerts and team activity.
+                </p>
+            </div>
+
+            <div class="inbox-p-btn flex flex-wrap gap-3">
+
+                <button class="bg-white border border-gray-200 text-gray-700 rounded-xl px-4 py-2 text-sm font-medium shadow-sm">
+                    <i class="fa-solid fa-gear mr-2"></i>Preferences
+                </button>
+
+                <button class="bg-blue-600 text-white rounded-xl px-4 py-2 text-sm font-medium shadow-sm">
+                    <i class="fa-solid fa-check-double mr-2"></i>Mark all read
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="inbox-btn bg-[#f1f5f9] rounded-2xl p-2 mt-6 overflow-x-auto">
+
+            <div class="flex gap-2 min-w-max">
+
+                <button class="bg-white text-gray-900 text-sm font-semibold rounded-xl px-4 py-2 shadow-sm">
+                    All
+                </button>
+
+                <button class="text-gray-600 text-sm font-medium rounded-xl px-4 py-2 hover:bg-white">
+                    Unread
+                    <span class="bg-blue-600 text-white text-xs rounded-full px-2 py-0.5 ml-1">3</span>
+                </button>
+
+                <button class="text-gray-600 text-sm font-medium rounded-xl px-4 py-2 hover:bg-white">
+                    Campaigns
+                </button>
+
+                <button class="text-gray-600 text-sm font-medium rounded-xl px-4 py-2 hover:bg-white">
+                    Performance
+                </button>
+
+                <button class="text-gray-600 text-sm font-medium rounded-xl px-4 py-2 hover:bg-white">
+                    Billing
+                </button>
+
+                <button class="text-gray-600 text-sm font-medium rounded-xl px-4 py-2 hover:bg-white">
+                    Team
+                </button>
+
+                <button class="text-gray-600 text-sm font-medium rounded-xl px-4 py-2 hover:bg-white">
+                    System
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="notebar border border-gray-200 rounded-3xl shadow-sm bg-white mt-6 overflow-hidden">
+
+
+        <div class="notebar-div flex justify-between gap-4 p-5 md:p-6">
+
+            <div class="flex gap-4">
+
+                <div class="w-12 h-12 md:w-14 md:h-14 bg-green-50 rounded-2xl flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-arrow-trend-up text-green-500 text-lg"></i>
+                </div>
+
+                <div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <h3 class="text-sm md:text-lg font-bold text-gray-900">
+                            CTR jumped +18% on Summer Sale
+                        </h3>
+
+                        <div class="rounded-full bg-blue-500 h-2 w-2"></div>
+                    </div>
+
+                    <p class="text-gray-500 text-xs md:text-sm mt-1 leading-6">
+                        Your campaign 'Summer Sale 2025' is outperforming the benchmark. Consider increasing budget.
+                    </p>
+                </div>
+
+            </div>
+
+            <p class="text-gray-400 text-xs md:text-sm whitespace-nowrap">
+                2m ago
+            </p>
+
+        </div>
+
+        <div class="border-b border-gray-100"></div>
+
+
+        <div class="notebar-div flex justify-between gap-4 p-5 md:p-6">
+
+            <div class="flex gap-4">
+
+                <div class="w-12 h-12 md:w-14 md:h-14 bg-blue-50 rounded-2xl flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-bullhorn text-blue-500 text-lg"></i>
+                </div>
+
+                <div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <h3 class="text-sm md:text-lg font-bold text-gray-900">
+                            AI generated 6 new ad variants
+                        </h3>
+
+                        <div class="rounded-full bg-blue-500 h-2 w-2"></div>
+                    </div>
+
+                    <p class="text-gray-500 text-xs md:text-sm mt-1 leading-6">
+                        New copy ready for review on 'Back to School' campaign.
+                    </p>
+                </div>
+
+            </div>
+
+            <p class="text-gray-400 text-xs md:text-sm whitespace-nowrap">
+                1h ago
+            </p>
+
+        </div>
+
+        <div class="border-b border-gray-100"></div>
+
+
+        <div class="notebar-div flex justify-between gap-4 p-5 md:p-6">
+
+            <div class="flex gap-4">
+
+                <div class="w-12 h-12 md:w-14 md:h-14 bg-yellow-50 rounded-2xl flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-folder-closed text-yellow-500 text-lg"></i>
+                </div>
+
+                <div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <h3 class="text-sm md:text-lg font-bold text-gray-900">
+                            Invoice #2041 is ready
+                        </h3>
+
+                        <div class="rounded-full bg-blue-500 h-2 w-2"></div>
+                    </div>
+
+                    <p class="text-gray-500 text-xs md:text-sm mt-1 leading-6">
+                        Your monthly invoice for May is available to download.
+                    </p>
+                </div>
+
+            </div>
+
+            <p class="text-gray-400 text-xs md:text-sm whitespace-nowrap">
+                3h ago
+            </p>
+
+        </div>
+
+        <div class="border-b border-gray-100"></div>
+
+
+        <div class="notebar-div flex justify-between gap-4 p-5 md:p-6">
+
+            <div class="flex gap-4">
+
+                <div class="w-12 h-12 md:w-14 md:h-14 bg-gray-100 rounded-2xl flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-user-plus text-gray-600 text-lg"></i>
+                </div>
+
+                <div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <h3 class="text-sm md:text-lg font-bold text-gray-900">
+                            Sara Lee joined your workspace
+                        </h3>
+                    </div>
+
+                    <p class="text-gray-500 text-xs md:text-sm mt-1 leading-6">
+                        Sara accepted your invite as an Editor.
+                    </p>
+                </div>
+
+            </div>
+
+            <p class="text-gray-400 text-xs md:text-sm whitespace-nowrap">
+                Yesterday
+            </p>
+
+        </div>
+
+        <div class="border-b border-gray-100"></div>
+
+
+        <div class="notebar-div flex justify-between gap-4 p-5 md:p-6">
+
+            <div class="flex gap-4">
+
+                <div class="w-12 h-12 md:w-14 md:h-14 bg-red-50 rounded-2xl flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-triangle-exclamation text-red-500 text-lg"></i>
+                </div>
+
+                <div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <h3 class="text-sm md:text-lg font-bold text-gray-900">
+                            Meta Ads connection expired
+                        </h3>
+                    </div>
+
+                    <p class="text-gray-500 text-xs md:text-sm mt-1 leading-6">
+                        Reconnect your Meta account to continue campaign syncing.
+                    </p>
+                </div>
+
+            </div>
+
+            <p class="text-gray-400 text-xs md:text-sm whitespace-nowrap">
+                2 days ago
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+</body>
+</html>
