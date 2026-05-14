@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Document</title>
+    
+
+    <body>
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-0 px-6 py-4 min-h-screen w-full max-w-5xl mx-auto ">
+            <form action="" class="bg-white flex flex-col px-8 py-12 justify-start gap-8 w-full ma-w-md">
+                <div class="gap-6 flex flex-col w-full flex-1">
+                    <div class="gap-2 flex flex-col ">
+                        <h1 class="font-bold  text-black text-4xl">Create your account</h1>
+                        <p class=" text-sm text-gray-500 font-semibold">Start generating ads in under 2 minutes. No credit card required.</p>
+                    </div>
+
+                    <div class="grid grid-cols-3 w-full gap-4 font-bold py-3 bg-white">
+                            <!-- Google Button -->
+                        <button class="flex items-center justify-center gap-2 border border-gray-200 w-full max-w-[160px] px-4 py-2.5 rounded-[12px] hover:bg-gray-50 transition-all active:scale-[0.98] shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-5 h-5 text-red-600">
+                                <path fill="currentColor" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
+                                <path fill="currentColor" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
+                                <path fill="currentColor" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
+                                <path fill="currentColor" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
+                            </svg>
+                            <a href="" class="text-gray-700 font-bold text-sm">Google</a>
+                        </button>
+
+                                    <!-- GitHub Button -->
+                        <button class="flex items-center justify-center gap-2 border border-gray-200 w-full max-w-[160px] px-4 py-2.5 rounded-[12px] hover:bg-gray-50 transition-all active:scale-[0.98] shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5 text-black">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            <a href="" class="text-gray-700 font-bold text-sm">GitHub</a>
+                        </button>
+
+                                        <!-- Apple Button -->
+                        <button class="flex items-center justify-center gap-2 border border-gray-200 w-full max-w-[160px] px-4 py-2.5 rounded-[12px] hover:bg-gray-50 transition-all active:scale-[0.98] shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5 text-black">
+                                <path d="M17.066 12.693c-.025-2.69 2.195-3.99 2.296-4.053-1.248-1.826-3.19-2.073-3.878-2.102-1.642-.167-3.204 1.01-4.055 1.01-.851 0-2.15-1-3.567-1-1.844.028-3.541 1.07-4.492 2.71-1.921 3.33-.491 8.243 1.36 10.923.903 1.306 1.975 2.766 3.388 2.712 1.365-.054 1.88-.881 3.528-.881 1.648 0 2.112.881 3.555.854 1.469-.027 2.404-1.314 3.3-2.617 1.037-1.517 1.465-2.986 1.488-3.06-.032-.014-2.883-1.107-2.912-4.4zM14.967 5.372c.738-.893 1.237-2.135 1.101-3.372-1.063.043-2.348.708-3.111 1.59-.684.778-1.282 2.05-1.124 3.25 1.187.091 2.396-.575 3.134-1.468z"/>
+                            </svg>
+                            <a href="" class="text-gray-700 font-bold text-sm">Apple</a>
+                        </button>
+                    </div> 
+                    
+                    <div class="flex items-center my-2">
+                            <!-- Left Line -->
+                        <div class="grow border-t border-gray-300"></div>
+  
+                            <!-- Text Content -->
+                        <span class=" mx-4 text-gray-400 text-xs font-bold tracking-widest">
+                             OR WITH EMAIL
+                        </span>
+  
+                            <!-- Right Line -->
+                        <div class="grow border-t border-gray-300"></div>
+                            
+                    </div>
+                </div>
+                <div class="flex flex-col gap-5 w-full max-w-md">
+                    <div class="flex flex-col gap-2">
+            
+                        <label class="text-sm font-bold text-gray-700 ml-1" for="Full name">Full name</label>
+                        <div class="flex items-center gap-3 w-full max-w-md px-4 py-2.5 border border-gray-200 rounded-[10px] focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500 transition-all bg-white shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-500">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                            </svg>
+
+                            <input type="text"  placeholder=" John Doe" class="outline-none w-full bg-transparent text-gray-700 placeholder:text-gray-400">
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-bold text-gray-700 ml-1" for="Work email">Work email</label> <br>
+                        <div   class="flex items-center gap-3 w-full max-w-md px-4 py-2.5 border border-gray-200 rounded-[10px] focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500 transition-all bg-white shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-500">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                            </svg>
+
+                            <input type="text" placeholder="you@gmail.com" class="outline-none w-full bg-transparent text-gray-700 placeholder:text-gray-400">
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-bold text-gray-700 ml-1" for="Password">Password</label> <br>
+                        <div class="flex items-center gap-3 w-full max-w-md px-4 py-2.5 border border-gray-200 rounded-[10px] focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500 transition-all bg-white shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-500">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                            </svg>
+
+                            <input type="text" placeholder="At least 8 characters" class="outline-none w-full bg-transparent text-gray-700 placeholder:text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-2 items-center">
+                    <input type="checkbox">
+                    <p>I agree to the <span class="text-sky-400 font-semibold">Terms</span> and <span class="text-sky-400 font-semibold">Privacy Policy</span>.</p>
+                </div>
+
+                <div class="flex justify-center w-full">
+                    <button type="submit" class=" items-center justify-center gap-2 bg-sky-500 hover:bg-sky-600 transition-all w-full text-white px-4 py-3 rounded-[10px] text-lg font-bold shadow-lg shadow-sky-200 flex">
+                        <a href="#" class="inline-block">Create account</a>
+                        
+        
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="flex gap-2 items-center justify-center ">
+                    <p>Already have an account? <span class="text-sky-500 font-semibold"><a href="signin.html">Sign in</a></span></p>
+                </div>
+
+            </form>
+
+
+
+        
+         
+
+            <main class="hidden md:flex flex-col justify-between px-16 py-16 relative overflow-hidden whitespace-nowrap min-h-screen"
+                style="background: radial-gradient( circle at top right, #1e293b 0%, #0f172a 40%, #020617 100%);">
+
+                <!-- Background Glow Effects -->
+                <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full -mr-40 -mt-40"></div>
+                <div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-900/10 blur-[100px] rounded-full -ml-20 -mb-20"></div>
+
+                <div class="flex flex-col gap-10 mb-3.5 relative z-10">
+                    <div class="flex flex-col gap-10">
+                        <div class="flex items-center gap-3">
+                            <div class="w-[40px] h-[40px] bg-blue-600 rounded-xl flex items-center justify-center text-white text-xl shadow-lg shadow-blue-500/20">✦</div>
+                            <div>
+                                <h1 class="font-syne font-bold text-lg text-white leading-none">AI Ads Studio</h1>
+                                <p class="text-[10px] text-slate-500 tracking-[0.3em] font-medium uppercase mt-1">GENERATE . LAUNCH . WIN</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-fit inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 rounded-full px-4 py-1.5 text-[11px] text-blue-400 font-bold">
+                        <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                        FREE 14-DAY TRIAL
+                    </div>
+                </div>
+                <div class=" mt-20 space-y-6">
+                    <h1 class="font-syne text-5xl font-black text-white leading-tight tracking-tight">
+                     From idea to live <br>
+                     campaign in <span class="text-blue-500">5 minutes.</span>
+                    </h1>
+                    <p class="text-slate-400 text-base font-medium leading-relaxed max-w-[400px]">
+                        Join 12,000+ marketers using AI Ads Studio to ship faster, <br>
+                        learn quicker, and grow smarter.
+                    </p>
+                </div>
+                
+                    
+                
+                <div class="flex flex-col gap-3">
+                    <div class="flex items-center gap-4 p-4 border border-white/5 bg-white/[0.03] rounded-2xl transition hover:bg-white/[0.06] w-fit pr-10">
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+                            </svg>
+                        </div>
+                        <div class="flex flex-col">
+                            <h3 class="text-white font-bold text-sm">Generate ads in seconds</h3>
+                            <p class="text-slate-500 text-xs">6+ variants per brief, tuned to your audience</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 p-4 border border-white/5 bg-white/[0.03] rounded-2xl transition hover:bg-white/[0.06] w-fit pr-10">
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
+                            </svg>
+
+                        </div>
+                        <div class="flex flex-col">
+                            <h3 class="text-white font-bold text-sm">Auto-optimized campaigns</h3>
+                            <p class="text-slate-500 text-xs">AI shifts spend to your top performers</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 p-4 border border-white/5 bg-white/[0.03] rounded-2xl transition hover:bg-white/[0.06] w-fit pr-10">
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+                            </svg>
+                        </div>
+                        <div class="flex flex-col">
+                            <h3 class="text-white font-bold text-sm">Brand-safe by default</h3>
+                            <p class="text-slate-500 text-xs">Guardrails keep your voice consistent</p>
+                        </div>
+                    </div>
+                </div>
+            
+               <div class="relative z-10 mt-auto">
+                    <div class="flex flex-col items-start gap-0.5 mb-8">
+                        <div class="flex items-center gap-1 text-yellow-500">
+                            <span class="flex text-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                                </svg> 
+                            </span>
+                            <span class="text-white font-bold ml-1 text-sm">4.9</span>
+                        </div>
+
+                        
+
+                        <p class="text-slate-500 text-xs font-medium uppercase tracking-wider">Loved by 12,000+ marketers</p>
+                    </div>
+                    <div class="flex justify-between items-center text-[11px] text-slate-600 font-bold relative z-10">
+                        <p class="uppercase tracking-widest font-bold text-xs text-slate-500">2026 AI Ads Studio</p>
+
+                        <div class="flex gap-6 uppercase tracking-widest font-bold">
+                            <a href="#" class="hover:text-blue-400 transition-colors">Privacy</a>
+                            <a href="#" class="hover:text-blue-400 transition-colors">Terms</a>
+                        </div>
+                    </div>
+            
+                    
+                </div>
+               
+                
+            </main>   
+                
+            
+            
+        </section>
+    </body>
+</html>
+            
+        
+    
+
