@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>settings and profile</title>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+       <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile Settings UI</title>
+
+  <!-- Tailwind CSS CDN
+  <scr src="https://cdn.tailwindcss.com"></script> -->
+</head>
+
+<body class="bg-[#f3f5f9] p-8 font-sans">
+
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile Settings UI</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#f3f5f9] p-8 font-sans">
+
+  <div class="max-w-6xl mx-auto">
+
+    <!-- PROFILE CARD -->
+    <div class="bg-white rounded-2xl p-8 mb-8 shadow-sm">
+
+      <h2 class="text-3xl font-bold mb-1">Profile</h2>
+
+      <p class="text-gray-500 mb-8">
+        Update your account information.
+      </p>
+
+      <!-- PROFILE TOP -->
+      <div class="flex items-center gap-5 mb-8">
+
+        <!-- Profile Image -->
+        <img
+          id="profilePreview"
+          src="https://via.placeholder.com/150"
+          alt="Profile"
+          class="w-24 h-24 rounded-full object-cover border"
+        >
+
+        <!-- Hidden File Input -->
+        <input
+          type="file"
+          id="profileInput"
+          accept="image/*"
+          hidden
+        >
+
+        <!-- Change Avatar Button -->
+        <button
+          type="button"
+          onclick="document.getElementById('profileInput').click()"
+          class="border border-gray-300 px-5 py-3 rounded-xl text-sm hover:bg-gray-100 transition"
+        >
+          Change avatar
+        </button>
+
+      </div>
+
+      <!-- FORM -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <div class="flex flex-col">
+          <label class="mb-2 font-semibold">Full name</label>
+
+          <input
+            type="text"
+            placeholder="Alex Morgan"
+            class="border border-gray-300 rounded-xl p-4 outline-none focus:border-blue-500"
+          >
+        </div>
+
+        <div class="flex flex-col">
+          <label class="mb-2 font-semibold">Email</label>
+
+          <input
+            type="email"
+            placeholder="alex@studio.io"
+            class="border border-gray-300 rounded-xl p-4 outline-none focus:border-blue-500"
+          >
+        </div>
+
+        <div class="flex flex-col">
+          <label class="mb-2 font-semibold">Company</label>
+
+          <input
+            type="text"
+            placeholder="Northwind Brands"
+            class="border border-gray-300 rounded-xl p-4 outline-none focus:border-blue-500"
+          >
+        </div>
+
+        <div class="flex flex-col">
+          <label class="mb-2 font-semibold">Role</label>
+
+          <input
+            type="text"
+            placeholder="Marketing Lead"
+            class="border border-gray-300 rounded-xl p-4 outline-none focus:border-blue-500"
+          >
+        </div>
+
+      </div>
+
+      <!-- BUTTON -->
+      <div class="flex justify-end mt-8">
+
+        <button
+          class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl transition"
+        >
+          Save changes
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- PASSWORD CARD -->
+    <div class="bg-white rounded-2xl p-8 mb-8 shadow-sm">
+
+      <h2 class="text-3xl font-bold mb-1">Password</h2>
+
+      <p class="text-gray-500 mb-8">
+        Use a strong, unique password.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <div class="flex flex-col">
+          <label class="mb-2 font-semibold">Current</label>
+
+          <input
+            type="password"
+            class="border border-gray-300 rounded-xl p-4 outline-none focus:border-blue-500"
+          >
+        </div>
+
+        <div class="flex flex-col">
+          <label class="mb-2 font-semibold">New</label>
+
+          <input
+            type="password"
+            class="border border-gray-300 rounded-xl p-4 outline-none focus:border-blue-500"
+          >
+        </div>
+
+        <div class="flex flex-col">
+          <label class="mb-2 font-semibold">Confirm</label>
+
+          <input
+            type="password"
+            class="border border-gray-300 rounded-xl p-4 outline-none focus:border-blue-500"
+          >
+        </div>
+
+      </div>
+
+      <div class="flex justify-end mt-8">
+
+        <button
+          class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl transition"
+        >
+          Update password
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- PREFERENCES SECTION -->
+    <div class="bg-white rounded-2xl p-8 shadow-sm mb-8">
+
+      <h2 class="text-2xl font-bold mb-8">Preferences</h2>
+
+      
+      <div class="flex items-center justify-between border-b pb-6 mb-6">
+
+        <div>
+          <h3 class="font-semibold text-lg">
+            Email notifications
+          </h3>
+
+          <p class="text-gray-500 text-sm">
+            Receive campaign updates by email.
+          </p>
+        </div>
+
+        <input type="checkbox" class="w-5 h-5">
+      </div>
+
+      
+      <div class="flex items-center justify-between border-b pb-6 mb-6">
+
+        <div>
+          <h3 class="font-semibold text-lg">
+            Weekly performance digest
+          </h3>
+
+          <p class="text-gray-500 text-sm">
+            A summary every Monday morning.
+          </p>
+        </div>
+
+        <input type="checkbox" class="w-5 h-5">
+      </div>
+
+      
+      <div class="flex items-center justify-between">
+
+        <div>
+          <h3 class="font-semibold text-lg">
+            AI suggestions
+          </h3>
+
+          <p class="text-gray-500 text-sm">
+            Let AI propose new ad variants automatically.
+          </p>
+        </div>
+
+        <input type="checkbox" class="w-5 h-5">
+      </div>
+
+    </div>
+
+    <!-- DANGER ZONE -->
+    <div class="border border-red-200 rounded-2xl p-8 bg-red-50">
+
+      <div class="mb-8">
+
+        <h2 class="text-2xl font-bold text-red-600">
+          Danger zone
+        </h2>
+
+        <p class="text-gray-500 mt-1">
+          Permanent actions. Proceed with care.
+        </p>
+
+      </div>
+
+      <div class="flex items-center justify-between">
+
+        <div>
+
+          <h3 class="font-semibold text-lg">
+            Delete account
+          </h3>
+
+          <p class="text-gray-500 text-sm">
+            All data and campaigns will be permanently removed.
+          </p>
+
+        </div>
+
+        <button
+          class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl transition "
+        >
+          Delete account
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- IMAGE PREVIEW SCRIPT -->
+  <script>
+
+    const profileInput = document.getElementById("profileInput");
+    const profilePreview = document.getElementById("profilePreview");
+
+    profileInput.addEventListener("change", function () {
+
+      const file = this.files[0];
+
+      if (file) {
+
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+
+          profilePreview.src = e.target.result;
+
+        };
+
+        reader.readAsDataURL(file);
+
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
+
+  </body>
+</html>
