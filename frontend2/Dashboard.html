@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://kit.fontawesome.com/80df18f9e4.js" crossorigin="anonymous"></script>
+    <title>Dashboard</title>
+</head>
+<body class="bg-blue-100">
+
+    <!-- grid layout ,Added responsive padding: px-4 for small, px-7 for larger screens -->
+
+    <main class="grid grid-rows-auto gap-5 mt-7 item-center px-4 md:px-7">
+
+        <!-- Top Stats Cards -->
+    <!-- 320px - 375px: grid-cols-1 (stacked) -->
+    <!-- 768px+: md:grid-cols-2 -->
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class=" flex justify-between p-4 rounded-[10px] bg-white">
+
+             <!----------------- Total spend card ---------------------------->
+                <div>
+                    <h1 class="grid text-[10px]">TOTAL SPEND</h1>
+                    <p class="font-bold text-[23px]">$12,480</p>
+                    <p class="text-[9px] flex items-center gap-1 text-[11px] md:text-[12px]"> <span class="text-green-500 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" style="width: 10px;" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                      </svg>
+                       +12.4% </span> vs last week</p>
+                </div>
+                <div>
+                   <span class="pl-2 pr-2 pb-1 rounded-[5px]" style="background-color: rgb(193, 215, 235);">$</span>
+                </div>
+            </div>
+            <div class=" flex justify-between p-4 rounded-[10px] bg-white">
+
+                <!------------------- IMPRESSIONS---------------------- -->
+
+                <div>
+                    <h1 class="grid text-[10px]">IMPRESSIONS</h1>
+                    <p class="font-bold text-[23px]">842k</p>
+                    <p class="text-[9px] flex items-center gap-1 text-[11px] md:text-[12px]"><span class="text-green-500 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" style="width: 10px;" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                      </svg>
+                       +8.1%</span> vs last week</p>
+                </div>
+                <span class="pl-1 pr-1 h-7 rounded-[5px]" style="background-color: rgb(193, 215, 235);">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                      </svg>
+                      
+                </span>
+            </div>
+            <div class=" flex justify-between p-4 rounded-[10px] bg-white">
+
+                <!------------------- clicks --------------------------------->
+                <div>
+                    <h1 class="grid text-[10px]">CLICKS</h1>
+                    <p class="font-bold text-[23px]">24,313</p>
+                    <p class="text-[9px] flex items-center gap-1 text-[11px] md:text-[12px]"><span class="text-green-500 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" style="width: 10px;"  stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                      </svg>
+                       +18.2%</span> vs last week</p>
+                </div>
+                <span class="pl-1 pr-1 h-7 rounded-[5px]" style="background-color: rgb(193, 215, 235);">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.834.166-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243-1.59-1.59" />
+                      </svg>
+                      
+                </span>
+            </div>
+            <div class=" flex justify-between p-4 rounded-[10px] bg-white">
+
+                <!------------------ Conversion------------------------- -->
+                <div>
+                    <h1 class="grid text-[10px]">CONVERSION</h1>
+                    <p class="font-bold text-[23px]">3.42%</p>
+                    <p class="flex items-center text-[9px] w-fit px-1 gap-1 text-[11px] md:text-[12px]"><span class="text-red-500 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" style="width: 10px;" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 4.5 15 15m0 0V8.25m0 11.25H8.25" />
+                      </svg>
+                       -0.6%</span> vs last week</p>
+                </div>
+                <span class="pl-1 pr-1 h-7 rounded-[5px]" style="background-color: rgb(193, 215, 235);">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
+                      </svg>
+                      
+                </span>
+            </div>
+        </div>
+
+<!-- Analytic & Graph -->
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="col-span-2 bg-white p-4 rounded-[10px]">
+                <h1 class="font-bold text-[15px] md:text-[17px]">Performance overview</h1>
+                <p class="text-[11px] md:text-[13px]">Impressions and clicks across last 7 days</p>
+            </div>
+            <div class=" bg-white p-4 rounded-[10px] ">
+                <h1 class="font-bold text-[15px] md:text-[17px]">Spend by platform</h1>
+                <p class="text-[11px] md:text-[13px]">This month</p>
+            </div>
+        </div>
+
+<!-- Recent Activities -->
+
+<!-- Added shadow-sm and border for the card look -->
+<div class="flex flex-col mb-4 bg-white p-6 rounded-[16px] shadow-sm border border-gray-50">
+    
+    <!-- Header with Icon -->
+    <div class="flex md:text-[13px] items-center gap-2 mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 w-4 h-4 text-blue-600">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+          </svg>
+        <p class="font-bold text-slate-800 text-[15px] md:text-[17px]">Recent activity</p>
+    </div>
+
+    <!-- divide-y creates the lines between items automatically -->
+    <div class="flex flex-col divide-y divide-gray-300">
+        
+        <!-- Activity Item -->
+        <div class="flex justify-between py-2 first:pt-0 last:pb-0">
+            <span>
+                <p class="font-semibold text-slate-900 text-[14px] md:text-[16px]">Summer Sale</p>
+                <p class="text-[11px] md:text-[12px]text-slate-500">Generated 6 new ad variants</p>
+            </span>
+            <span class="flex items-center gap-1 grid grid-rows-2 md:grid-cols-2 md:gap-3">
+                <span class="bg-slate-100 px-3 py-1 rounded-full text-[10px] md:text-[12px] font-medium text-slate-700">AI</span>
+                <p class="text-[10px] md:text-[12px] text-slate-400">2m ago</p>
+            </span>
+        </div>
+
+        <!-- Activity Item -->
+        <div class="flex justify-between py-2">
+            <span>
+                <p class="font-semibold text-slate-900 text-[14px] md:text-[16px]">Holiday Push</p>
+                <p class="text-[11px] md:text-[12px] text-slate-500">Campaign went live</p>
+            </span>
+            <span class="flex items-center grid grid-rows-2 md:grid-cols-2 gap-1 md:gap-3">
+                <span class="bg-slate-100 px-2 py-1 rounded-[10px] text-[10px] md:text-[12px] font-medium text-slate-700">Live</span>
+                <p class="text-[10px] md:text-[12px] text-slate-400">1h ago</p>
+            </span>
+        </div>
+
+        <!-- Activity Item -->
+        <div class="flex justify-between py-2">
+            <span>
+                <p class="font-semibold text-slate-900 text-[14px] md:text-[16px]">Winter Boots</p>
+                <p class="text-[11px] md:text-[12px] text-slate-500">Reached 10k impressions</p>
+            </span>
+            <span class="flex items-center grid grid-rows-2 md:grid-cols-2 gap-1 md:gap-3">
+                <span class="bg-slate-100 px-3 py-1 rounded-full text-[10px] md:text-[12px] font-medium text-slate-700">Milestone</span>
+                <p class="text-[10px] flex justify-end md:text-[12px] text-slate-400">3h ago</p>
+            </span>
+        </div>
+
+        <!-- Activity Item -->
+        <div class="flex justify-between ">
+            <span>
+                <p class="font-semibold text-slate-900 text-[14px] md:text-[16px]">Brand Awareness</p>
+                <p class="text-[11px] md:text-[12px] text-slate-500">Paused by Alex</p>
+            </span>
+            <span class="flex items-center gap-1 grid grid-rows-2 md:grid-cols-2 md:gap-3">
+                <span class="bg-slate-100 px-3  py-1 rounded-full text-[10px] md:text-[12px] font-medium text-slate-700">Paused</span>
+                <p class="text-[10px] flex justify-end  md:text-[12px] text-slate-400">Yesterday</p>
+            </span>
+        </div>
+    </div>
+</div>
+    </main>
+</body>
+</html>
