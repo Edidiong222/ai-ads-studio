@@ -97,12 +97,14 @@ else:
         }
     }
 
-# Vercel / production host
-_vercel_host = os.getenv("VERCEL_URL", "").strip()
-if _vercel_host:
-    ALLOWED_HOSTS.append(_vercel_host.removeprefix("https://").removeprefix("http://"))
-
+# Vercel / production host (leading dot = all *.vercel.app preview + production URLs)
 if os.getenv("VERCEL") or os.getenv("VERCEL_ENV"):
+    for host in (".vercel.app", ".vercel.sh"):
+        if host not in ALLOWED_HOSTS:
+            ALLOWED_HOSTS.append(host)
+    _vercel_host = os.getenv("VERCEL_URL", "").strip()
+    if _vercel_host:
+        ALLOWED_HOSTS.append(_vercel_host.removeprefix("https://").removeprefix("http://"))
     SERVE_FRONTEND = os.getenv("SERVE_FRONTEND", "false").lower() in ("1", "true", "yes")
 
 AUTH_PASSWORD_VALIDATORS = [

@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path, re_path
+from django.views.generic import RedirectView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 from studio.frontend import api_config_js, serve_student_frontend
@@ -18,6 +19,16 @@ urlpatterns = [
         name="swagger-ui-no-slash",
     ),
 ]
+
+if not settings.SERVE_FRONTEND:
+    urlpatterns.insert(
+        0,
+        path(
+            "",
+            RedirectView.as_view(url="/docs/", permanent=False),
+            name="api-root",
+        ),
+    )
 
 if settings.DEBUG and settings.SERVE_FRONTEND:
     urlpatterns += [
