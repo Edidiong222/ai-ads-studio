@@ -68,7 +68,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-if os.getenv("USE_SQLITE", "").lower() in ("1", "true", "yes"):
+DATABASE_URL = os.getenv("DATABASE_URL", "")
+if DATABASE_URL:
+    import dj_database_url
+
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=600,
+        )
+    }
+elif os.getenv("USE_SQLITE", "").lower() in ("1", "true", "yes"):
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
@@ -86,6 +96,14 @@ else:
             "PORT": os.getenv("POSTGRES_PORT", "5432"),
         }
     }
+
+# Vercel / production host
+_vercel_host = os.getenv("VERCEL_URL", "").strip()
+if _vercel_host:
+    ALLOWED_HOSTS.append(_vercel_host.removeprefix("https://").removeprefix("http://"))
+
+if os.getenv("VERCEL") or os.getenv("VERCEL_ENV"):
+    SERVE_FRONTEND = os.getenv("SERVE_FRONTEND", "false").lower() in ("1", "true", "yes")
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
@@ -107,7 +125,8 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CORS_ALLOW_ALL_ORIGINS = DEBUG
+_cors_allow_all = os.getenv("CORS_ALLOW_ALL", "").lower() in ("1", "true", "yes")
+CORS_ALLOW_ALL_ORIGINS = DEBUG or _cors_allow_all
 CORS_ALLOWED_ORIGINS = [
     o.strip()
     for o in os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
