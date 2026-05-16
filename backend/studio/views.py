@@ -1,5 +1,7 @@
 import os
+import random
 import uuid
+from decimal import Decimal
 
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
@@ -342,6 +344,38 @@ class CampaignDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Campaign.objects.filter(owner=self.request.user)
+
+
+class CampaignSimulateMetricsView(APIView):
+    """Demo: increase impressions/clicks/spend when a campaign runs (for analytics charts)."""
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    @extend_schema(summary="Simulate live ad metrics (demo)")
+    def post(self, request, campaign_id):
+        campaign = get_object_or_404(
+            Campaign, id=campaign_id, owner=request.user
+        )
+        if campaign.status == Campaign.STATUS_DRAFT:
+            campaign.status = Campaign.STATUS_ACTIVE
+
+        imp_delta = request.data.get("impressions_delta")
+        click_delta = request.data.get("clicks_delta")
+        spend_delta = request.data.get("spend_delta")
+
+        campaign.impressions += int(imp_delta if imp_delta is not None else random.randint(200, 900))
+        campaign.clicks += int(click_delta if click_delta is not None else random.randint(8, 45))
+        campaign.spend += Decimal(str(spend_delta if spend_delta is not None else "5.00"))
+        campaign.save()
+
+        Notification.objects.create(
+            user=request.user,
+            title="Campaign running",
+            message=f'"{campaign.name}" — {campaign.impressions:,} impressions, {campaign.clicks:,} clicks.',
+        )
+        return Response(
+            CampaignSerializer(campaign, context={"request": request}).data
+        )
 
 
 class NotificationListView(generics.ListAPIView):

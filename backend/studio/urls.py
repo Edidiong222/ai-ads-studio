@@ -8,6 +8,7 @@ from .views import (
     AnalyticsView,
     CampaignDetailView,
     CampaignListCreateView,
+    CampaignSimulateMetricsView,
     DashboardView,
     HealthView,
     NotificationListView,
@@ -36,6 +37,11 @@ urlpatterns = [
     ),
     path("campaigns/", CampaignListCreateView.as_view(), name="api-campaigns"),
     path("campaigns/<uuid:campaign_id>/", CampaignDetailView.as_view(), name="api-campaign-detail"),
+    path(
+        "campaigns/<uuid:campaign_id>/simulate/",
+        CampaignSimulateMetricsView.as_view(),
+        name="api-campaign-simulate",
+    ),
     path("notifications/", NotificationListView.as_view(), name="api-notifications"),
     path(
         "notifications/<uuid:notification_id>/read/",

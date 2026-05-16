@@ -3,6 +3,7 @@
  */
 (function () {
   const API = () => window.API_BASE || "/api";
+  let analyticsRefreshTimer = null;
 
   function token() {
     return localStorage.getItem("access_token");
@@ -211,6 +212,10 @@
   }
 
   async function renderAnalytics() {
+    if (analyticsRefreshTimer) {
+      clearInterval(analyticsRefreshTimer);
+      analyticsRefreshTimer = null;
+    }
     try {
       const data = await api("/analytics/");
       const spend = document.getElementById("stat-spend");
@@ -249,12 +254,18 @@
             .join("");
         }
       }
+      analyticsRefreshTimer = setInterval(function () {
+        renderAnalytics();
+      }, 8000);
     } catch (e) {
       const root = document.getElementById("app-hydrate");
       if (root) {
         const err = document.createElement("p");
         err.className = "text-red-600 p-4";
+        err.id = "analytics-error";
         err.textContent = "Could not load analytics: " + e.message;
+        const prev = document.getElementById("analytics-error");
+        if (prev) prev.remove();
         root.prepend(err);
       }
     }
