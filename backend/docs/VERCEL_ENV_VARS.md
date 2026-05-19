@@ -14,7 +14,7 @@ After your first deploy, add your exact hostname to `DJANGO_ALLOWED_HOSTS`, e.g.
 
 | Variable | Notes |
 |----------|--------|
-| `DATABASE_URL` | Supabase connection string with `?sslmode=require` |
+| `DATABASE_URL` | **Supabase Transaction pooler** URL (port **6543**) — see below |
 | `DJANGO_SECRET_KEY` | Same as local `.env` (generated secret) |
 | `DJANGO_DEBUG` | `false` |
 | `DJANGO_ALLOWED_HOSTS` | `your-project.vercel.app,.vercel.app` |
@@ -39,6 +39,34 @@ After your first deploy, add your exact hostname to `DJANGO_ALLOWED_HOSTS`, e.g.
 |----------|-----|
 | `USE_SQLITE` | Serverless has no persistent disk |
 | `POSTGRES_*` alone | Use `DATABASE_URL` instead |
+
+---
+
+## DATABASE_URL — use Supabase **pooler** (fixes 503 on Vercel)
+
+**Do not use** the direct host `db.xxxxx.supabase.co:5432` on Vercel. It often fails with:
+
+`Cannot assign requested address` (IPv6 / serverless).
+
+### Get the correct string
+
+1. Open [Supabase Dashboard](https://supabase.com/dashboard) → your project → **Connect**.
+2. Choose **ORMs** or **Connection string**.
+3. Select **Transaction** mode (port **6543**), not Session/Direct.
+4. Copy the URI. It looks like:
+
+```text
+postgresql://postgres.dduympqtnpdocwnvxxwa:[YOUR-PASSWORD]@aws-0-eu-west-1.pooler.supabase.com:6543/postgres
+```
+
+5. Append if missing: `?sslmode=require`
+6. If your password has special characters (`@`, `#`, etc.), [URL-encode](https://www.urlencoder.org/) it.
+7. Paste into **Vercel → Settings → Environment Variables → `DATABASE_URL`** for Production and Preview.
+8. **Redeploy** the project.
+
+### Local dev
+
+You can keep direct `db....supabase.co:5432` in local `.env`, or use the same pooler URL everywhere.
 
 ---
 

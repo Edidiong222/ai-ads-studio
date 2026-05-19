@@ -91,12 +91,25 @@ elif USE_SQLITE:
 elif DATABASE_URL:
     import dj_database_url
 
+    _on_vercel = bool(os.getenv("VERCEL") or os.getenv("VERCEL_ENV"))
+    _pooler_host = "pooler.supabase.com" in DATABASE_URL
+    _pooler_port = ":6543" in DATABASE_URL
+
     DATABASES = {
         "default": dj_database_url.config(
             default=DATABASE_URL,
-            conn_max_age=600,
+            # Serverless: no persistent connections; use Supabase pooler (port 6543)
+            conn_max_age=0 if _on_vercel else 600,
         )
     }
+    if _on_vercel or _pooler_host or _pooler_port:
+        DATABASES["default"]["CONN_MAX_AGE"] = 0
+    if _pooler_host or _pooler_port:
+        # Transaction pooler (PgBouncer) — required for Django on Vercel
+        DATABASES["default"]["DISABLE_SERVER_SIDE_CURSORS"] = True
+    DATABASES["default"].setdefault("OPTIONS", {})
+    if "sslmode" not in DATABASES["default"]["OPTIONS"]:
+        DATABASES["default"]["OPTIONS"]["sslmode"] = "require"
 else:
     DATABASES = {
         "default": {
@@ -121,6 +134,21 @@ if os.getenv("VERCEL") or os.getenv("VERCEL_ENV"):
     if not DATABASE_URL and not USE_SQLITE:
         raise ValueError(
             "DATABASE_URL must be set in Vercel Environment Variables (Supabase connection string)."
+        )
+    # Direct db.*.supabase.co:5432 often fails on Vercel (IPv6). Use pooler URL instead.
+    if (
+        DATABASE_URL
+        and "db." in DATABASE_URL
+        and ".supabase.co" in DATABASE_URL
+        and "pooler.supabase.com" not in DATABASE_URL
+    ):
+        import warnings
+
+        warnings.warn(
+            "DATABASE_URL uses Supabase direct host (port 5432). "
+            "On Vercel, use the Transaction pooler URL (port 6543) from "
+            "Supabase → Connect → Transaction mode. See docs/VERCEL_ENV_VARS.md.",
+            stacklevel=1,
         )
 
 AUTH_PASSWORD_VALIDATORS = [

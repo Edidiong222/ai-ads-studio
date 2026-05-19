@@ -10,6 +10,7 @@
 
 1. Vercel is **not deploying** the `backend` branch (wrong root directory or branch).
 2. **Migrations** never ran on Supabase (`accounts_userprofile` table missing).
+3. **`DATABASE_URL` uses direct Supabase host** (`db.xxx.supabase.co:5432`) → **503** on Vercel with `Cannot assign requested address`. Use **Transaction pooler** (port **6543**) — see [VERCEL_ENV_VARS.md](./VERCEL_ENV_VARS.md).
 
 ## Fix in Vercel Dashboard
 
@@ -20,7 +21,7 @@
 2. **Settings → Git → Production Branch** → **`backend`**
 
 3. **Settings → Environment Variables** (Production):
-   - `DATABASE_URL` = Supabase URL with `?sslmode=require`
+   - `DATABASE_URL` = Supabase **Transaction pooler** URL (port **6543**, host `*.pooler.supabase.com`) — **not** `db.xxx.supabase.co:5432`
    - `DJANGO_SECRET_KEY` = long random string
    - `DJANGO_DEBUG` = `false`
    - `DJANGO_ALLOWED_HOSTS` = `ai-ads-studio-kappa.vercel.app,.vercel.app`
