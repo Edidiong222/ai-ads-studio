@@ -29,7 +29,7 @@ After your first deploy, add your exact hostname to `DJANGO_ALLOWED_HOSTS`, e.g.
 
 | Variable | Notes |
 |----------|--------|
-| `SUPABASE_URL` | `https://dduympqtnpdocwnvxxwa.supabase.co` |
+| `SUPABASE_URL` | `https://bwhsaxgvwjmfiwlrvaqi.supabase.co` |
 | `SUPABASE_ANON_KEY` | Supabase publishable / anon key |
 | `SUPABASE_STORAGE_BUCKET` | `pdfs` (create bucket in Supabase if missing) |
 
@@ -56,7 +56,7 @@ After your first deploy, add your exact hostname to `DJANGO_ALLOWED_HOSTS`, e.g.
 4. Copy the URI. It looks like:
 
 ```text
-postgresql://postgres.dduympqtnpdocwnvxxwa:[YOUR-PASSWORD]@aws-0-eu-west-1.pooler.supabase.com:6543/postgres
+postgresql://postgres.bwhsaxgvwjmfiwlrvaqi:[YOUR-PASSWORD]@aws-0-eu-west-1.pooler.supabase.com:6543/postgres
 ```
 
 5. Append if missing: `?sslmode=require`
