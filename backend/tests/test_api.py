@@ -66,6 +66,20 @@ class AuthTests(TestCase):
         self.assertEqual(me.json()["email"], payload["email"])
         self.assertIn("generations_limit", me.json())
 
+    def test_register_weak_password_returns_400_not_500(self):
+        client = APIClient()
+        reg = client.post(
+            "/api/auth/register/",
+            {
+                "email": "weak@example.com",
+                "password": "stringst",
+                "password_confirm": "stringst",
+            },
+            format="json",
+        )
+        self.assertEqual(reg.status_code, 400)
+        self.assertIn("password", reg.json())
+
 
 class QuotaTests(TestCase):
     def test_quota_blocks_generation(self):

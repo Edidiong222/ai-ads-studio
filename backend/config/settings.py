@@ -175,8 +175,9 @@ STORAGES = {
     },
 }
 
-# Serve DRF admin/docs assets on Vercel (collectstatic runs in vercel.json buildCommand)
-WHITENOISE_USE_FINDERS = DEBUG
+# Serve DRF/Swagger static assets. On Vercel, finders read from installed packages
+# (staticfiles/ from collectstatic is not always in the serverless bundle).
+WHITENOISE_USE_FINDERS = DEBUG or bool(os.getenv("VERCEL") or os.getenv("VERCEL_ENV"))
 WHITENOISE_MAX_AGE = 60 * 60 * 24 * 30 if not DEBUG else 0
 
 MEDIA_URL = "/media/"
