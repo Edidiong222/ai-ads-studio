@@ -241,22 +241,23 @@ html {
   }
 }
 
-/* Soft fade into white — no hard line */
+/* Long soft tail into flowing sections */
 .landing-hero::after {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: min(38vh, 280px);
+  height: min(55vh, 420px);
   z-index: 1;
   pointer-events: none;
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    rgb(248 250 252 / 0.25) 40%,
-    rgb(255 255 255 / 0.75) 75%,
-    #fff 100%
+    rgb(248 250 252 / 0.08) 25%,
+    rgb(255 255 255 / 0.35) 55%,
+    rgb(255 255 255 / 0.7) 82%,
+    transparent 100%
   );
 }
 
@@ -265,8 +266,36 @@ html {
   z-index: 2;
 }
 
-.landing-section {
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+/* Scroll-reveal wash: fades in, bold at center, fades out — no hard bands */
+.landing-flow-section {
+  position: relative;
+  background: transparent;
+  --reveal: 0;
+}
+
+.landing-flow-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.landing-flow-section::before {
+  content: "";
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  top: -18%;
+  bottom: -18%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 100% 75% at 50% 48%,
+    rgb(59 130 246 / calc(var(--reveal) * 0.24)) 0%,
+    rgb(99 102 241 / calc(var(--reveal) * 0.17)) 36%,
+    rgb(139 92 246 / calc(var(--reveal) * 0.12)) 58%,
+    transparent 76%
+  );
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
 }
 
 @media (prefers-reduced-motion: reduce) {
