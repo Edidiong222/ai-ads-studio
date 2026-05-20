@@ -1,0 +1,15 @@
+---
+description: After finishing code changes, commit and push to main and backend
+alwaysApply: true
+---
+
+When you complete a modification in this repo:
+
+1. Run `python manage.py build_web_templates` if `frontend2/` or web templates/static changed.
+2. Commit with a clear message (no secrets).
+3. Push to **both** branches:
+   - `git push myfork backend` (and `origin backend` if applicable)
+   - merge `backend` into `main`, then `git push myfork main` and `git push origin main`
+4. Return the commit SHA so the user can confirm Vercel redeployed.
+
+Default remotes: `myfork` (awaaladin), `origin` (Edidiong222).
