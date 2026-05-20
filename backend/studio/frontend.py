@@ -21,8 +21,11 @@ def serve_student_frontend(request, path=""):
     root = settings.FRONTEND_ROOT
     if not root.is_dir():
         return HttpResponse(
-            "<h1>Frontend not pulled yet</h1>"
-            "<p>Run: <code>powershell -File backend/scripts/sync-frontend2.ps1</code></p>",
+            "<h1>Frontend not bundled for deploy</h1>"
+            "<p>Run: <code>powershell -File backend/scripts/prepare-vercel-frontend.ps1</code></p>"
+            "<p>Then set <code>SERVE_FRONTEND=true</code> on Vercel and commit "
+            "<code>backend/studio/templates/web</code>, "
+            "<code>backend/studio/static/web</code>, and <code>backend/frontend2</code>.</p>",
             status=503,
             content_type="text/html",
         )

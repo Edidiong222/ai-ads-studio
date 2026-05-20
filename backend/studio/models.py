@@ -195,6 +195,91 @@ class AuditLog(models.Model):
         ordering = ["-created_at"]
 
 
+class GeneratedAd(models.Model):
+    TYPE_COPY = "copy"
+    TYPE_IMAGE = "image"
+    TYPE_CHOICES = [(TYPE_COPY, "Copy"), (TYPE_IMAGE, "Image")]
+
+    FORMAT_SQUARE = "square"
+    FORMAT_STORY = "story"
+    FORMAT_BANNER = "banner"
+    FORMAT_CHOICES = [
+        (FORMAT_SQUARE, "Square"),
+        (FORMAT_STORY, "Story"),
+        (FORMAT_BANNER, "Banner"),
+    ]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="generated_ads",
+    )
+    brief = models.ForeignKey(
+        AdBrief,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="generated_ads",
+    )
+    campaign = models.ForeignKey(
+        "Campaign",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="generated_ads",
+    )
+    ad_type = models.CharField(max_length=16, choices=TYPE_CHOICES, default=TYPE_COPY)
+    content = models.TextField()
+    platform_format = models.CharField(
+        max_length=16, choices=FORMAT_CHOICES, default=FORMAT_SQUARE
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+
+class ImageGenerationJob(models.Model):
+    STATUS_PENDING = "pending"
+    STATUS_DONE = "done"
+    STATUS_FAILED = "failed"
+    STATUS_CHOICES = [
+        (STATUS_PENDING, "Pending"),
+        (STATUS_DONE, "Done"),
+        (STATUS_FAILED, "Failed"),
+    ]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="image_jobs",
+    )
+    brief = models.ForeignKey(
+        AdBrief,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="image_jobs",
+    )
+    status = models.CharField(max_length=16, choices=STATUS_CHOICES, default=STATUS_PENDING)
+    product_name = models.CharField(max_length=512, blank=True, default="")
+    style = models.CharField(max_length=128, blank=True, default="")
+    platform_format = models.CharField(
+        max_length=16,
+        choices=GeneratedAd.FORMAT_CHOICES,
+        default=GeneratedAd.FORMAT_SQUARE,
+    )
+    image_url = models.URLField(max_length=2048, blank=True, default="")
+    error_message = models.CharField(max_length=512, blank=True, default="")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+
 class GenerationRecord(models.Model):
     """Persisted history of every successful generation (SaaS value + billing audit)."""
 

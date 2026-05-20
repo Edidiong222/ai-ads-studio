@@ -81,6 +81,17 @@ class AuthTests(TestCase):
         self.assertEqual(reg.status_code, 400)
         self.assertIn("password", reg.json())
 
+    def test_register_without_trailing_slash_url(self):
+        """POST /api/auth/register works without trailing slash (students often omit it)."""
+        client = APIClient()
+        payload = {
+            "email": "slash@example.com",
+            "password": "SecurePass123!",
+            "password_confirm": "SecurePass123!",
+        }
+        reg = client.post("/api/auth/register", payload, format="json")
+        self.assertEqual(reg.status_code, 201)
+
 
 class QuotaTests(TestCase):
     def test_quota_blocks_generation(self):
@@ -90,6 +101,7 @@ class QuotaTests(TestCase):
             password="SecurePass123!",
         )
         profile = UserProfile.objects.get(user=user)
+        profile.copy_generations_used = profile.copy_limit
         profile.generations_this_month = profile.generation_limit
         profile.save()
 
@@ -116,10 +128,13 @@ class QuotaTests(TestCase):
         brief_id = brief.json()["id"]
 
         gen = client.post(f"/api/ad-briefs/{brief_id}/generate/")
-        self.assertEqual(gen.status_code, 429)
+        self.assertEqual(gen.status_code, 402)
         body = gen.json()
         self.assertIn("error", body)
-        self.assertIn("Upgrade", body["error"])
+        self.assertTrue(
+            "Upgrade" in body["error"] or body.get("error") == "quota_exceeded",
+            msg=body,
+        )
 
 
 class OutputCleanerTests(TestCase):

@@ -1,11 +1,10 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path, re_path
+from django.urls import include, path
 from django.views.generic import RedirectView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
-from studio.frontend import api_config_js, serve_student_frontend
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -30,21 +29,9 @@ if not settings.SERVE_FRONTEND:
         ),
     )
 
-if settings.DEBUG and settings.SERVE_FRONTEND:
+if settings.SERVE_FRONTEND:
     urlpatterns += [
-        path("config.js", api_config_js, name="api-config-js"),
-        path(
-            "favicon.svg",
-            serve_student_frontend,
-            {"path": "favicon.svg"},
-            name="favicon-svg",
-        ),
-        path("", serve_student_frontend, name="frontend-index"),
-        re_path(
-            r"^(?P<path>[\w\-\./]+\.(?:html|js|css|svg|ico|png|webp))$",
-            serve_student_frontend,
-            name="frontend-asset",
-        ),
+        path("", include("studio.web_urls")),
     ]
 
 if settings.DEBUG:

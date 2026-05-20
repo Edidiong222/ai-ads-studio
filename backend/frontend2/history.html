@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/studio.css" />
+  <script src="/config.js"></script>
+  <script src="/ui.js"></script>
+  <script src="/product.js"></script>
+  <script src="/auth.js"></script>
+  <title>Generation history — AI Ads Studio</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-50">
+  <div class="flex h-screen overflow-hidden">
+    <nav class="hidden md:flex flex-col bg-[#f5fbff] w-60 min-h-screen py-3 border-r border-gray-200 shrink-0">
+      <div class="border-b w-full flex gap-3 p-3 border-gray-200">
+        <div class="bg-blue-600 w-10 h-10 flex justify-center items-center rounded-lg shrink-0 text-white font-bold">A</div>
+        <div>
+          <h1 class="font-bold text-xl">AI Ads Studio</h1>
+          <h2 class="text-gray-400 text-[13px]">AI Ad Copy SaaS</h2>
+        </div>
+      </div>
+      <div class="p-4 flex-1">
+        <ul class="text-[14px] flex flex-col gap-0.5">
+          <li class="flex items-center rounded-lg px-3 py-2 gap-2.5 text-gray-600 hover:bg-blue-100 cursor-pointer">Dashboard</li>
+          <li class="flex items-center rounded-lg px-3 py-2 gap-2.5 text-gray-600 hover:bg-blue-100 cursor-pointer">Create Ad</li>
+          <li class="flex items-center rounded-lg px-3 py-2 gap-2.5 font-semibold text-blue-700 bg-blue-100 cursor-pointer">History</li>
+          <li class="flex items-center rounded-lg px-3 py-2 gap-2.5 text-gray-600 hover:bg-blue-100 cursor-pointer">Campaigns</li>
+          <li class="flex items-center rounded-lg px-3 py-2 gap-2.5 text-gray-600 hover:bg-blue-100 cursor-pointer">Analytics</li>
+          <li class="flex items-center rounded-lg px-3 py-2 gap-2.5 text-gray-600 hover:bg-blue-100 cursor-pointer">Notifications</li>
+          <li class="flex items-center rounded-lg px-3 py-2 gap-2.5 text-gray-600 hover:bg-blue-100 cursor-pointer">Pricing</li>
+          <li class="flex items-center rounded-lg px-3 py-2 gap-2.5 text-gray-600 hover:bg-blue-100 cursor-pointer">Settings</li>
+        </ul>
+      </div>
+      <div class="p-4 border-t"><li class="list-none text-gray-600 cursor-pointer px-3 py-2">Sign out</li></div>
+    </nav>
+    <main class="flex-1 overflow-y-auto p-6 md:p-10" id="app-main"></main>
+  </div>
+  <script src="/app.js"></script>
+  <script src="/nav.js"></script>
+</body>
+</html>

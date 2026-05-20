@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="{% static 'web/favicon.svg' %}" type="image/svg+xml" />
+  <link rel="stylesheet" href="{% static 'web/studio.css' %}" />
+  <script src="{% url 'api-config-js' %}"></script>
+  <script src="{% static 'web/ui.js' %}"></script>
+  <script src="{% static 'web/product.js' %}"></script>
+  <title>{% block title %}AI Ads Studio{% endblock %}</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://kit.fontawesome.com/80df18f9e4.js" crossorigin="anonymous"></script>
+  <script src="{% static 'web/auth.js' %}"></script>
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-gray-50">
+  <div data-active-nav="{{ active_nav|default:'' }}" hidden aria-hidden="true"></div>
+  <div class="flex h-screen overflow-hidden">
+    {% include "web/partials/sidebar_desktop.html" %}
+    {% include "web/partials/sidebar_mobile.html" %}
+    <div class="flex flex-col flex-1 overflow-hidden min-w-0">
+      <nav class="w-full h-16 md:h-20 px-4 md:px-6 border-b border-gray-200 bg-white shrink-0">
+        <div class="flex h-full justify-between items-center gap-3">
+          <div class="flex items-center gap-3">
+            <button id="open-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-100 duration-200 text-gray-600"
+              aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor" class="size-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+              </svg>
+            </button>
+            <h1 class="font-bold text-base md:text-lg">{% block page_heading %}Dashboard{% endblock %}</h1>
+          </div>
+          <div class="flex gap-2 md:gap-3 items-center">
+            <div class="hidden md:flex px-4 py-2 text-sm shadow-[0_0_6px_rgba(0,0,0,0.1)] items-center gap-2 rounded-lg bg-white">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-4">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+              </svg>
+              <input class="outline-none text-gray-600 w-44 text-sm" placeholder="Search campaigns" type="text" />
+            </div>
+            <button
+              class="bg-blue-700 hover:bg-blue-800 duration-300 px-3 md:px-5 py-2 font-bold text-white cursor-pointer rounded-lg text-xs md:text-sm whitespace-nowrap">+
+              New Ad</button>
+          </div>
+        </div>
+      </nav>
+      <main id="app-main" class="flex-1 overflow-y-auto p-4 md:p-6 bg-gray-50">
+        {% block main %}{% endblock %}
+      </main>
+    </div>
+  </div>
+  <script>
+    const openBtn = document.getElementById('open-btn');
+    const closeBtn = document.getElementById('close-btn');
+    const mobileNav = document.getElementById('mobile-nav');
+    const overlay = document.getElementById('overlay');
+    function openMenu() {
+      mobileNav.classList.remove('-translate-x-full');
+      mobileNav.classList.add('translate-x-0');
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+      overlay.classList.add('opacity-100');
+      openBtn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      mobileNav.classList.remove('translate-x-0');
+      mobileNav.classList.add('-translate-x-full');
+      overlay.classList.remove('opacity-100');
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+      openBtn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+    openBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+    window.addEventListener('resize', () => { if (window.innerWidth >= 768) closeMenu(); });
+  </script>
+  <script src="{% static 'web/app.js' %}"></script>
+  <script src="{% static 'web/nav.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

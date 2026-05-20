@@ -21,8 +21,12 @@ class UserProfile(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     email_verified = models.BooleanField(default=False)
+    display_name = models.CharField(max_length=255, blank=True, default="")
+    onboarding_complete = models.BooleanField(default=False)
     plan = models.CharField(max_length=16, choices=PLAN_CHOICES, default=PLAN_FREE)
     generations_this_month = models.PositiveIntegerField(default=0)
+    copy_generations_used = models.PositiveIntegerField(default=0)
+    image_generations_used = models.PositiveIntegerField(default=0)
     billing_period_start = models.DateField(default=timezone.localdate)
     stripe_customer_id = models.CharField(max_length=255, blank=True, default="", db_index=True)
     stripe_subscription_id = models.CharField(max_length=255, blank=True, default="")
@@ -34,14 +38,35 @@ class UserProfile(models.Model):
         today = timezone.now().date()
         if today.month != self.billing_period_start.month or today.year != self.billing_period_start.year:
             self.generations_this_month = 0
+            self.copy_generations_used = 0
+            self.image_generations_used = 0
             self.billing_period_start = today
-            self.save(update_fields=["generations_this_month", "billing_period_start"])
+            self.save(
+                update_fields=[
+                    "generations_this_month",
+                    "copy_generations_used",
+                    "image_generations_used",
+                    "billing_period_start",
+                ]
+            )
 
     @property
     def generation_limit(self):
         if self.plan == self.PLAN_PRO:
             return int(getattr(settings, "GENERATION_LIMIT_PRO", 500))
-        return int(getattr(settings, "GENERATION_LIMIT_FREE", 25))
+        return int(getattr(settings, "GENERATION_LIMIT_FREE", 10))
+
+    @property
+    def copy_limit(self):
+        if self.plan == self.PLAN_PRO:
+            return int(getattr(settings, "COPY_LIMIT_PRO", 500))
+        return int(getattr(settings, "COPY_LIMIT_FREE", 10))
+
+    @property
+    def image_limit(self):
+        if self.plan == self.PLAN_PRO:
+            return int(getattr(settings, "IMAGE_LIMIT_PRO", 100))
+        return int(getattr(settings, "IMAGE_LIMIT_FREE", 5))
 
 
 class EmailVerificationToken(models.Model):

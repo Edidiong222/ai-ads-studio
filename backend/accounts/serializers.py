@@ -31,11 +31,21 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         read_only_fields = ("id",)
 
+    def validate_email(self, value):
+        email = (value or "").strip().lower()
+        if User.objects.filter(email__iexact=email).exists():
+            raise serializers.ValidationError(
+                "An account with this email already exists. Use Sign in instead."
+            )
+        return email
+
     def validate(self, attrs):
         if attrs.get("work_email") and not attrs.get("email"):
             attrs["email"] = attrs["work_email"]
         if not attrs.get("email"):
             raise serializers.ValidationError({"email": "Email is required."})
+        if attrs.get("email"):
+            attrs["email"] = attrs["email"].strip().lower()
         if attrs["password"] != attrs["password_confirm"]:
             raise serializers.ValidationError({"password_confirm": "Passwords do not match."})
         try:
@@ -79,17 +89,26 @@ class EmailLoginSerializer(TokenObtainPairSerializer):
         from django.conf import settings
 
         email = attrs.pop("email", None)
+        password = attrs.get("password")
         if email:
-            try:
-                user = User.objects.get(email__iexact=email)
-                attrs[self.username_field] = getattr(user, self.username_field)
-            except User.DoesNotExist:
+            email = email.strip().lower()
+            candidates = User.objects.filter(email__iexact=email).order_by("-id")
+            if not candidates.exists():
                 raise serializers.ValidationError(
                     {
                         "email": "No account with this email. Sign up first on this server.",
                         "error": "No account with this email. Sign up first on this server.",
                     }
                 ) from None
+            user = None
+            if password:
+                for candidate in candidates:
+                    if candidate.check_password(password):
+                        user = candidate
+                        break
+            if user is None:
+                user = candidates.first()
+            attrs[self.username_field] = getattr(user, self.username_field)
         try:
             data = super().validate(attrs)
         except serializers.ValidationError as exc:
@@ -186,3 +205,7 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
 
 class EmailVerifySerializer(serializers.Serializer):
     token = serializers.CharField()
+
+
+class ResendVerificationSerializer(serializers.Serializer):
+    email = serializers.EmailField()

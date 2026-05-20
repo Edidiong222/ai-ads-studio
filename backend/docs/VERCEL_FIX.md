@@ -12,6 +12,28 @@
 2. **Migrations** never ran on Supabase (`accounts_userprofile` table missing).
 3. **`DATABASE_URL` uses direct Supabase host** (`db.xxx.supabase.co:5432`) → **503** on Vercel with `Cannot assign requested address`. Use **Transaction pooler** (port **6543**) — see [VERCEL_ENV_VARS.md](./VERCEL_ENV_VARS.md).
 
+## Preview works but Production is old (“Current” on wrong deploy)
+
+If **Preview** deployments show `backend` + latest commits (`077ec84`, `7eff65b`) but **Production** shows an old “Redeploy of …” from another branch, students hitting `ai-ads-studio-kappa.vercel.app` still get the **old API**.
+
+### Option A — Promote latest Preview to Production (fastest)
+
+1. Vercel → **Deployments**
+2. Open the top **Preview** deploy (`077ec84` — `Fix CI: use password that fails…`)
+3. Click **⋯** (three dots) → **Promote to Production**
+4. Confirm
+
+Production URL will now serve the same code as Preview.
+
+### Option B — Point Production at `backend` branch (permanent)
+
+1. **Settings → Git → Production Branch** → change from `main` to **`backend`**
+2. **Deployments → Redeploy** (or push a small commit to `backend`)
+
+Every future push to `backend` will update Production automatically.
+
+---
+
 ## Fix in Vercel Dashboard
 
 1. **Settings → General → Root Directory**  

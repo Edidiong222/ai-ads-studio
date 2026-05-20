@@ -15,23 +15,27 @@ from .views import (
     PasswordResetRequestView,
     RefreshView,
     RegisterView,
+    ResendVerificationView,
 )
 
-urlpatterns = [
-    path("register/", RegisterView.as_view(), name="auth-register"),
-    path("login/", LoginView.as_view(), name="auth-login"),
-    path("refresh/", RefreshView.as_view(), name="auth-refresh"),
-    path("logout/", LogoutView.as_view(), name="auth-logout"),
-    path("me/", MeView.as_view(), name="auth-me"),
-    path("password-reset/", PasswordResetRequestView.as_view(), name="auth-password-reset"),
-    path(
-        "password-reset/confirm/",
-        PasswordResetConfirmView.as_view(),
-        name="auth-password-reset-confirm",
-    ),
-    path("verify-email/", EmailVerifyView.as_view(), name="auth-verify-email"),
-    path("billing/status/", BillingStatusView.as_view(), name="billing-status"),
-    path("billing/checkout/", BillingCheckoutView.as_view(), name="billing-checkout"),
-    path("billing/portal/", BillingPortalView.as_view(), name="billing-portal"),
-    path("billing/webhook/", StripeWebhookView.as_view(), name="billing-webhook"),
-]
+_pairs = (
+    ("register/", RegisterView.as_view(), "auth-register"),
+    ("login/", LoginView.as_view(), "auth-login"),
+    ("refresh/", RefreshView.as_view(), "auth-refresh"),
+    ("logout/", LogoutView.as_view(), "auth-logout"),
+    ("me/", MeView.as_view(), "auth-me"),
+    ("password-reset/", PasswordResetRequestView.as_view(), "auth-password-reset"),
+    ("password-reset/confirm/", PasswordResetConfirmView.as_view(), "auth-password-reset-confirm"),
+    ("verify-email/", EmailVerifyView.as_view(), "auth-verify-email"),
+    ("resend-verify/", ResendVerificationView.as_view(), "auth-resend-verify"),
+    ("billing/status/", BillingStatusView.as_view(), "billing-status"),
+    ("billing/checkout/", BillingCheckoutView.as_view(), "billing-checkout"),
+    ("billing/portal/", BillingPortalView.as_view(), "billing-portal"),
+    ("billing/webhook/", StripeWebhookView.as_view(), "billing-webhook"),
+)
+
+urlpatterns = []
+for pattern, view, name in _pairs:
+    urlpatterns.append(path(pattern, view, name=name))
+    if pattern.endswith("/"):
+        urlpatterns.append(path(pattern.rstrip("/"), view, name=f"{name}-no-slash"))

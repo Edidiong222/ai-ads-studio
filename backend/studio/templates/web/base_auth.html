@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="{% static 'web/favicon.svg' %}" type="image/svg+xml">
+  <title>{% block title %}AI Ads Studio{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { syne: ['Syne', 'sans-serif'], dm: ['DM Sans', 'sans-serif'] },
+          colors: {
+            navy: { DEFAULT: '#0d1117', mid: '#131b2e', card: '#1a2438', border: '#243050' },
+            blue: { accent: '#2563eb', hover: '#1d4ed8' },
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="{% static 'web/studio.css' %}">
+  <script src="{% url 'api-config-js' %}"></script>
+  <script src="{% static 'web/ui.js' %}"></script>
+  <script src="{% static 'web/auth.js' %}"></script>
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  {% block body %}{% endblock %}
+  <script>
+    if (typeof window.switchPage !== "function") {
+      window.switchPage = function (page) {
+        var el = document.getElementById(page);
+        if (!el) {
+          window.location.href = page === "signup" ? "/signup/" : "/signin/";
+          return false;
+        }
+        document.querySelectorAll(".page").forEach(function (p) { p.classList.remove("active"); });
+        el.classList.add("active");
+        window.scrollTo(0, 0);
+        return false;
+      };
+    }
+    function togglePw(id, btn) {
+      var inp = document.getElementById(id);
+      if (!inp) return;
+      var show = inp.type === "password";
+      inp.type = show ? "text" : "password";
+    }
+  </script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

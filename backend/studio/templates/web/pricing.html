@@ -1,0 +1,72 @@
+{% extends "web/base_simple.html" %}
+{% block title %}Pricing{% endblock %}
+{% block body %}
+<header class="border-b bg-white">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="{% url 'web-home' %}" class="font-bold text-xl text-gray-900 no-underline">AI Ads Studio</a>
+      <div>
+        <a href="{% url 'web-signin' %}" class="text-sm text-gray-600 mr-4">Sign in</a>
+        <a href="{% url 'web-signup' %}" class="text-sm font-semibold text-blue-600">Start free</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 py-16">
+    <h1 class="text-4xl font-extrabold text-gray-900 text-center mb-3">Copy, images &amp; PDF packs</h1>
+    <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
+      You get paste-ready ad copy, image downloads, and PDF multi-variant exports for clients. We never claim to post to Meta or Google for you — you keep your own tooling.
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+      <article class="studio-card p-8">
+        <h2 class="text-lg font-bold">Free</h2>
+        <p class="text-3xl font-extrabold mt-2">$0</p>
+        <p class="text-sm text-gray-500 mt-1">per month</p>
+        <ul class="mt-6 text-sm text-gray-700 space-y-2 list-disc pl-5">
+          <li>Copy &amp; variant generation (monthly cap)</li>
+          <li>Image generation jobs (within limits)</li>
+          <li>PDF download of every variant after generate</li>
+          <li>Full REST API access (same as classrooms use)</li>
+        </ul>
+        <a href="{% url 'web-signup' %}" class="mt-8 block text-center py-3 rounded-lg border border-gray-200 font-semibold hover:bg-gray-50">Get started</a>
+      </article>
+      <article class="studio-card p-8 border-2 border-blue-600 relative">
+        <span class="absolute -top-3 left-6 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">PRO</span>
+        <h2 class="text-lg font-bold">Pro</h2>
+        <p class="text-3xl font-extrabold mt-2" id="pro-price">$29</p>
+        <p class="text-sm text-gray-500 mt-1">per month</p>
+        <ul class="mt-6 text-sm text-gray-700 space-y-2 list-disc pl-5">
+          <li>Much higher copy + image quotas</li>
+          <li>Stripe checkout &amp; customer portal</li>
+          <li>Priority for instructor demo environments (same features)</li>
+        </ul>
+        <button type="button" id="btn-upgrade" class="mt-8 w-full py-3 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700">Upgrade to Pro</button>
+      </article>
+    </div>
+    <p class="text-center text-xs text-gray-500 mt-10 max-w-xl mx-auto">
+      Pro does not include ad network publishing — you copy assets into Ads Manager or any channel you already use.
+    </p>
+  </main>
+
+  <script>
+    (function () {
+      if (window.StudioProduct) {
+        window.StudioProduct.billingStatus()
+          .then(function (b) {
+            var el = document.getElementById("pro-price");
+            if (el && b.pricing && b.pricing.pro) el.textContent = "$" + b.pricing.pro.price_usd;
+          })
+          .catch(function () {});
+      }
+      document.getElementById("btn-upgrade").addEventListener("click", function () {
+        if (!window.StudioUI || !window.StudioUI.getToken()) {
+          window.location.href = "/signup.html";
+          return;
+        }
+        window.StudioProduct.startCheckout().catch(function (e) {
+          window.StudioUI.toast(e.message, "error");
+        });
+      });
+    })();
+  </script>
+{% endblock %}

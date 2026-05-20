@@ -1,3 +1,4 @@
+import json
 import logging
 from typing import Any
 
@@ -42,19 +43,31 @@ def save_generation_record(
     source_id,
     input_data: dict,
     output_data: Any,
+    variant_count: int | None = None,
     status: str = GenerationRecord.STATUS_SUCCESS,
     error_message: str = "",
 ) -> GenerationRecord | None:
     if not user or not user.is_authenticated:
         return None
+    if variant_count is None:
+        variant_count = len(output_data) if isinstance(output_data, list) else 0
     try:
+
+        def _json_safe(obj):
+            if obj is None:
+                return obj
+            return json.loads(json.dumps(obj, default=str))
+
+        od = output_data if isinstance(output_data, (dict, list)) else {"raw": str(output_data)}
+        id_safe = _json_safe(input_data)
+        od_safe = _json_safe(od)
         return GenerationRecord.objects.create(
             user=user,
             source_type=source_type,
             source_id=source_id,
-            input_data=input_data,
-            output_data=output_data if isinstance(output_data, (dict, list)) else {"raw": str(output_data)},
-            variant_count=len(output_data) if isinstance(output_data, list) else 0,
+            input_data=id_safe,
+            output_data=od_safe,
+            variant_count=variant_count,
             status=status,
             error_message=error_message[:512],
         )

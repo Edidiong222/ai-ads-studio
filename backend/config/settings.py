@@ -4,13 +4,30 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-load_dotenv()
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 REPO_ROOT = BASE_DIR.parent
 
-# Student UI (HTML + Tailwind) in repo frontend2/. Sync: scripts/sync-frontend2.ps1
-FRONTEND_ROOT = Path(os.getenv("FRONTEND_ROOT", str(REPO_ROOT / "frontend2")))
+# Load env: repo root .env then backend/.env (backend wins for duplicate keys).
+# Ensures GROK_API_KEY etc. load when manage.py is run from repo root or IDE.
+load_dotenv(REPO_ROOT / ".env")
+load_dotenv(BASE_DIR / ".env", override=True)
+
+# Student UI source HTML in frontend2/ (repo root or backend/frontend2). Build: manage.py build_web_templates
+def _resolve_frontend_root() -> Path:
+    explicit = os.getenv("FRONTEND_ROOT", "").strip()
+    if explicit:
+        return Path(explicit)
+    for candidate in (
+        REPO_ROOT / "frontend2",
+        BASE_DIR / "frontend2",
+        BASE_DIR.parent / "frontend2",
+    ):
+        if candidate.is_dir():
+            return candidate
+    return REPO_ROOT / "frontend2"
+
+
+FRONTEND_ROOT = _resolve_frontend_root()
 SERVE_FRONTEND = os.getenv("SERVE_FRONTEND", "true").lower() in ("1", "true", "yes")
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "change-me-in-production")
@@ -130,7 +147,13 @@ if os.getenv("VERCEL") or os.getenv("VERCEL_ENV"):
     _vercel_host = os.getenv("VERCEL_URL", "").strip()
     if _vercel_host:
         ALLOWED_HOSTS.append(_vercel_host.removeprefix("https://").removeprefix("http://"))
-    SERVE_FRONTEND = os.getenv("SERVE_FRONTEND", "false").lower() in ("1", "true", "yes")
+    # Respect SERVE_FRONTEND=true in Vercel env (product UI). Default false keeps API-only for class API.
+    SERVE_FRONTEND = os.getenv("SERVE_FRONTEND", "false").strip().lower() in (
+        "1",
+        "true",
+        "yes",
+        "on",
+    )
     if not DATABASE_URL and not USE_SQLITE:
         raise ValueError(
             "DATABASE_URL must be set in Vercel Environment Variables (Supabase connection string)."
@@ -165,6 +188,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "studio" / "static"]
 
 STORAGES = {
     "default": {
@@ -210,7 +234,8 @@ REST_FRAMEWORK = {
         "anon": os.getenv("THROTTLE_ANON", "60/minute"),
         "user": os.getenv("THROTTLE_USER", "120/minute"),
         "auth_burst": os.getenv("THROTTLE_AUTH", "10/minute"),
-        "generate": os.getenv("THROTTLE_GENERATE", "30/hour"),
+        "generate": os.getenv("THROTTLE_GENERATE", "10/minute"),
+        "image_generate": os.getenv("THROTTLE_IMAGE_GENERATE", "5/minute"),
     },
 }
 
@@ -232,6 +257,18 @@ SPECTACULAR_SETTINGS = {
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+
+# xAI Grok (preferred for copy + images when set)
+GROK_API_KEY = os.getenv("GROK_API_KEY", "") or os.getenv("XAI_API_KEY", "")
+GROK_MODEL = os.getenv("GROK_MODEL", "grok-3-latest")
+GROK_IMAGE_MODEL = os.getenv("GROK_IMAGE_MODEL", "grok-imagine-image-quality")
+GROK_TIMEOUT_SECONDS = int(os.getenv("GROK_TIMEOUT_SECONDS", "60"))
+GROK_IMAGE_TIMEOUT_SECONDS = int(os.getenv("GROK_IMAGE_TIMEOUT_SECONDS", "120"))
+
+COPY_LIMIT_FREE = int(os.getenv("COPY_LIMIT_FREE", "10"))
+COPY_LIMIT_PRO = int(os.getenv("COPY_LIMIT_PRO", "500"))
+IMAGE_LIMIT_FREE = int(os.getenv("IMAGE_LIMIT_FREE", "5"))
+IMAGE_LIMIT_PRO = int(os.getenv("IMAGE_LIMIT_PRO", "100"))
 
 SUPABASE_URL = os.getenv("SUPABASE_URL", "")
 SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY", "")
@@ -312,5 +349,19 @@ LOGGING = {
     "loggers": {
         "studio.generation": {"handlers": ["console"], "level": "INFO", "propagate": False},
         "studio.audit": {"handlers": ["console"], "level": "INFO", "propagate": False},
+        "studio.ai_ops": {"handlers": ["console"], "level": "INFO", "propagate": False},
     },
 }
+
+SENTRY_DSN = os.getenv("SENTRY_DSN", "").strip()
+if SENTRY_DSN:
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,
+        integrations=[DjangoIntegration()],
+        traces_sample_rate=float(os.getenv("SENTRY_TRACES_SAMPLE_RATE", "0.1")),
+        environment=os.getenv("SENTRY_ENVIRONMENT", "production"),
+        send_default_pii=False,
+    )

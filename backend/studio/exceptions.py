@@ -23,10 +23,17 @@ def _normalize_errors(data):
 
 
 def custom_exception_handler(exc, context):
+    from studio.services.usage import UsageLimitExceeded
+
     response = exception_handler(exc, context)
     if response is not None:
         if isinstance(response.data, dict):
             response.data = _normalize_errors(response.data)
+            if isinstance(exc, UsageLimitExceeded):
+                response.data["error"] = "quota_exceeded"
+                response.data["upgrade_url"] = getattr(
+                    exc, "upgrade_url", settings.PUBLIC_APP_URL + "/pricing/"
+                )
         return response
 
     logger.exception("Unhandled API error")

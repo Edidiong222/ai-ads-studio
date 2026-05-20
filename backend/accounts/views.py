@@ -22,6 +22,7 @@ from .serializers import (
     PasswordResetConfirmSerializer,
     PasswordResetRequestSerializer,
     RegisterSerializer,
+    ResendVerificationSerializer,
     UserSerializer,
 )
 
@@ -73,12 +74,27 @@ class RegisterView(generics.CreateAPIView):
                 },
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
+        data = dict(serializer.data)
+        user = serializer.instance
+        profile = getattr(user, "profile", None)
+        if profile is None:
+            profile, _ = UserProfile.objects.get_or_create(user=user)
+        need_verify = getattr(settings, "REQUIRE_EMAIL_VERIFICATION", False) and not settings.DEBUG
+        if need_verify and not profile.email_verified:
+            data["verification_required"] = True
+            data["verification_message"] = (
+                "Check your email for a verification link before signing in."
+            )
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
 
     def perform_create(self, serializer):
         user = serializer.save()
         profile, _ = UserProfile.objects.get_or_create(user=user)
+        full_name = (self.request.data.get("full_name") or "").strip()
+        if full_name:
+            profile.display_name = full_name
+            profile.save(update_fields=["display_name"])
         if settings.DEBUG or not getattr(settings, "REQUIRE_EMAIL_VERIFICATION", False):
             profile.email_verified = True
             profile.save(update_fields=["email_verified"])
@@ -189,6 +205,38 @@ class PasswordResetConfirmView(APIView):
         row.save(update_fields=["used_at"])
         audit(user, "auth.password_reset_confirm", "user", user.pk)
         return Response({"detail": "Password updated."}, status=status.HTTP_200_OK)
+
+
+class ResendVerificationView(APIView):
+    """POST JSON { email } — resend verification link (no email enumeration)."""
+
+    permission_classes = [permissions.AllowAny]
+    throttle_classes = [AnonRateThrottle, AuthBurstThrottle]
+    throttle_scope = "auth_burst"
+
+    def post(self, request):
+        ser = ResendVerificationSerializer(data=request.data)
+        ser.is_valid(raise_exception=True)
+        email = ser.validated_data["email"].strip().lower()
+        msg = "If an account exists and is unverified, we sent a verification email."
+
+        if not getattr(settings, "REQUIRE_EMAIL_VERIFICATION", False):
+            return Response({"detail": msg})
+
+        user = User.objects.filter(email__iexact=email).first()
+        if user is None:
+            return Response({"detail": msg})
+
+        profile, _ = UserProfile.objects.get_or_create(user=user)
+        if profile.email_verified:
+            return Response(
+                {"detail": "This email is already verified — you can sign in."},
+                status=status.HTTP_200_OK,
+            )
+
+        token = EmailVerificationToken.create_for_user(user)
+        send_verification_email(user, token.token)
+        return Response({"detail": msg}, status=status.HTTP_200_OK)
 
 
 class EmailVerifyView(APIView):

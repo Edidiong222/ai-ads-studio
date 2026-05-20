@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 def send_verification_email(user, token: str) -> None:
     base = getattr(settings, "PUBLIC_APP_URL", "http://127.0.0.1:8000").rstrip("/")
-    link = f"{base}/verify-email.html?token={token}"
+    link = f"{base}/verify-email/?token={token}"
     subject = "Verify your AI Ads Studio email"
     body = (
         f"Hi {user.first_name or user.username},\n\n"

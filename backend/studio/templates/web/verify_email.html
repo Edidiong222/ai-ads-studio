@@ -1,0 +1,86 @@
+{% extends "web/base_simple.html" %}
+{% block title %}Verify email{% endblock %}
+{% block body %}
+<main class="max-w-md w-full studio-card p-8 rounded-2xl shadow-sm border border-gray-200 bg-white">
+      <h1 class="text-xl font-bold text-gray-900 mb-3">Email verification</h1>
+      <p id="verify-status" class="text-gray-600">Verifying…</p>
+      <p class="text-sm text-gray-500 mt-6">
+        Wrong inbox?
+        <button type="button" id="resend-btn" class="text-blue-700 font-semibold underline">
+          Resend email
+        </button>
+        (requires your sign-up email below)
+      </p>
+      <input
+        type="email"
+        id="resend-email"
+        class="mt-2 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm"
+        placeholder="you@school.edu"
+      />
+      <p id="resend-msg" class="text-sm mt-3 hidden"></p>
+      <p class="text-sm text-gray-500 mt-8">
+        <a href="{% url 'web-signin' %}" class="text-blue-700 font-semibold">Back to sign in</a>
+      </p>
+    </main>
+    <script>
+      (function () {
+        var el = document.getElementById("verify-status");
+        var base = (window.API_BASE || "/api").replace(/\/$/, "");
+        var params = new URLSearchParams(window.location.search);
+        var token = params.get("token");
+        if (!token) {
+          el.textContent = "Open the link from your email (it includes a token), or sign in if you already verified.";
+          return;
+        }
+        fetch(base + "/auth/verify-email/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token: token }),
+        })
+          .then(function (r) {
+            return r.json().then(function (j) {
+              return { ok: r.ok, j: j };
+            });
+          })
+          .then(function (x) {
+            el.textContent = x.ok
+              ? x.j.detail || "Email verified. You can sign in."
+              : x.j.detail || "Verification failed.";
+            if (x.ok) el.classList.add("text-green-700");
+          })
+          .catch(function () {
+            el.textContent = "Network error — try again.";
+          });
+
+        var btn = document.getElementById("resend-btn");
+        var inp = document.getElementById("resend-email");
+        var msg = document.getElementById("resend-msg");
+        btn.addEventListener("click", function () {
+          var em = (inp.value || "").trim().toLowerCase();
+          if (!em || !em.includes("@")) {
+            msg.textContent = "Enter the email you signed up with.";
+            msg.classList.remove("hidden");
+            return;
+          }
+          msg.textContent = "Sending…";
+          msg.classList.remove("hidden");
+          fetch(base + "/auth/resend-verify/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: em }),
+          })
+            .then(function (r) {
+              return r.json().then(function (j) {
+                return { ok: r.ok, j: j };
+              });
+            })
+            .then(function (x) {
+              msg.textContent = x.j.detail || "Done.";
+            })
+            .catch(function () {
+              msg.textContent = "Request failed.";
+            });
+        });
+      })();
+    </script>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "web/base_app.html" %}
+{% block title %}AI Ads Studio{% endblock %}
+{% block main %}
+<div class="max-w-6xl mx-auto">
+          <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
+            <div>
+            <h2 class="text-2xl font-bold text-gray-900">Your campaigns</h2>
+            <p class="text-gray-500 text-sm mt-1">Create and monitor campaigns across platforms.</p>
+            </div>
+            <button id="studio-create-campaign" type="button" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg text-sm studio-focus">+ New campaign</button>
+          </div>
+          <div id="campaigns-empty" class="hidden bg-white rounded-2xl border border-gray-200 p-12 text-center shadow-sm">
+            <p class="text-gray-500 mb-4">No campaigns yet. Create your first campaign or generate an ad to get started.</p>
+            <a href="{% url 'web-create-ad' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-lg">Create ad</a>
+          </div>
+          <div id="campaigns-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        </div>
+{% endblock %}

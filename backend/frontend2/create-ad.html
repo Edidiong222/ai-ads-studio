@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/studio.css" />
+  <script src="/ui.js"></script>
+
+    <title>AI Ads Studio - Create Ad</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>AI Ads Studio - Create Ad</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script
+      src="https://kit.fontawesome.com/80df18f9e4.js"
+      src="https://kit.fontawesome.com/80df18f9e4.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/config.js"></script>
+  <script src="/auth.js"></script>
+</head>
+  <body class="bg-gray-50">
+    <div class="flex h-screen overflow-hidden">
+      <nav
+        class="hidden md:flex flex-col bg-[#f5fbff] w-60 min-h-screen py-3 border-r border-gray-200 shrink-0"
+      >
+        <div class="border-b w-full flex gap-3 p-3 border-gray-200">
+          <div
+            class="bg-blue-600 w-10 h-10 flex justify-center items-center rounded-lg shrink-0"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="white"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+              />
+            </svg>
+          </div>
+          <div>
+            <h1 class="font-bold text-xl">AI Ads Studio</h1>
+            <h2 class="text-gray-400 text-[13px]">Generate. Launch. Win</h2>
+          </div>
+        </div>
+
+        <div class="p-4 flex flex-col justify-between flex-1">
+          <div class="flex-1">
+            <h2
+              class="text-gray-400 mx-1 text-[11px] uppercase tracking-widest mb-2"
+            >
+              Workspace
+            </h2>
+            <ul class="text-[14px] flex flex-col gap-0.5">
+              <li
+                class="flex items-center text-gray-600 hover:bg-blue-100 cursor-pointer duration-200 rounded-lg px-3 py-2 gap-2.5 "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-4 shrink-0"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"
+                  />
+                </svg>
+                Dashboard
+              </li>
+              <li
+                class="flex items-center font-semibold text-blue-700 bg-blue-100 hover:bg-blue-100 cursor-pointer duration-200 rounded-lg px-3 py-2 gap-2.5 "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-4 shrink-0"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+                  />
+                </svg>
+                Create Ad
+              </li>
+              <li
+                class="flex items-center hover:bg-blue-100 cursor-pointer duration-200 rounded-lg px-3 py-2 gap-2.5 text-gray-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-4 shrink-0"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 1 1 0-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 0 1-1.44-4.282m3.102.069a18.03 18.03 0 0 1-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 0 1 8.835 2.535M10.34 6.66a23.847 23.847 0 0 0 8.835-2.535m0 0A23.74 23.74 0 0 0 18.795 3m.38 1.125a23.91 23.91 0 0 1 1.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 0 0 1.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 0 1 0 3.46"
+                  />
+                </svg>
+                Campaigns
+              </li>
+              <li
+                class="flex items-center hover:bg-blue-100 cursor-pointer duration-200 rounded-lg px-3 py-2 gap-2.5 text-gray-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-4 shrink-0"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"
+                  />
+                </svg>
+                Analytics
+              </li>
+              <li
+                class="flex items-center hover:bg-blue-100 cursor-pointer duration-200 rounded-lg px-3 py-2 gap-2.5 text-gray-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-4 shrink-0"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
+                  />
+                </svg>
+                Notifications
+              </li>
+              <li
+                class="flex items-center hover:bg-blue-100 cursor-pointer duration-200 rounded-lg px-3 py-2 gap-2.5 text-gray-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-4 shrink-0"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  />
+                </svg>
+                Settings
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h2
+              class="text-gray-400 text-[11px] uppercase tracking-widest mb-2"
+            >
+              Account
+            </h2>
+            <ul class="text-[14px] flex flex-col gap-0.5">
+              <li
+                class="flex items-center hover:bg-blue-100 cursor-pointer duration-200 rounded-lg px-3 py-2 gap-2.5 text-gray-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-4 shrink-0"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"
+                  />
+                </svg>
+                Sign in
+              </li>
+              <li
+                class="flex items-center hover:bg-blue-100 cursor-pointer duration-200 rounded-lg px-3 py-2 gap-2.5 text-gray-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-4 shrink-0"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"
+                  />
+                </svg>
+                Sign out
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div
+        id="overlay"
+        class="fixed inset-0 z-30 bg-black/50 backdrop-blur-[2px] md:hidden opacity-0 pointer-events-none transition-opacity duration-300"
+      ></div>
+
+      <nav
+        id="mobile-nav"
+        class="fixed top-0 left-0 z-40 h-full w-[75vw] max-w-xs min-w-[260px] bg-[#f5fbff] flex flex-col py-3 border-r border-gray-200 shadow-2xl md:hidden -translate-x-full transition-transform duration-300 ]"
+        aria-label="Mobile navigation"
+      >
+        <div
+          class="border-b w-full flex items-center justify-between gap-3 p-3 border-gray-200"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="bg-blue-600 w-9 h-9 flex justify-center items-center rounded-lg shrink-0"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="white"
+                class="size-5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+                />
+              </svg>
+            </div>
+            <div>
+              <h1 class="font-bold text-lg leading-tight">AI Ads Studio</h1>
+              <p class="text-gray-400 text-[12px]">Generate. Launch. Win</p>
+            </div>
+          </div>
+          <button
+            id="close-btn"
+            class="p-2 rounded-lg hover:bg-gray-200 duration-200 text-gray-500"
+            aria-label="Close menu"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              class="size-5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18 18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="p-4 flex flex-col justify-between flex-1 overflow-y-auto">
+          <div class="mb-4">
+            <div
+              class="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-white border border-gray-200 shadow-sm"
+            >
+              <i class="fa-solid fa-magnifying-glass text-gray-400 text-xs"></i>
+              <input
+                class="outline-none text-gray-600 w-full text-[13px] bg-transparent"
+                placeholder="Search campaigns"
+                type="text"
+              />
+            </div>
+          </div>
+
+          <div class="flex-1">
+            <h2
+              class="text-gray-400 mx-1 text-[11px] uppercase tracking-widest mb-2"
+            >
+              Workspace
+            </h2>
+            <ul class="text-[14px] flex flex-col gap-0.5">
+              <li
+                class="flex items-center text-gray-600 hover:bg-blue-100 cursor-pointer duration-200 rounded-lg px-3 py-2.5 gap-2.5 "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-4 shrink-0"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"
+                  />
+                </svg>
+                Dashboard
+              </li>
+              <li
+                class="flex items-center hover:bg-blue-100 cursor-pointer duration-200 rounded-lg px-3 py-2.5 gap-2.5 font-semibold text-blue-700 bg-blue-100"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-4 shrink-0"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+                  />
+                </svg>
+                Create Ad
+              </li>
+              <li
+                class="flex items-center hover:bg-blue-100 cursor-pointer duration-200 rounded-lg px-3 py-2.5 gap-2.5 text-gray-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-4 shrink-0"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 1 1 0-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 0 1-1.44-4.282m3.102.069a18.03 18.03 0 0 1-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 0 1 8.835 2.535M10.34 6.66a23.847 23.847 0 0 0 8.835-2.535m0 0A23.74 23.74 0 0 0 18.795 3m.38 1.125a23.91 23.91 0 0 1 1.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 0 0 1.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 0 1 0 3.46"
+                  />
+                </svg>
+                Campaigns
+              </li>
+              <li
+                class="flex items-center hover:bg-blue-100 cursor-pointer duration-200 rounded-lg px-3 py-2.5 gap-2.5 text-gray-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-4 shrink-0"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"
+                  />
+                </svg>
+                Analytics
+              </li>
+              <li
+                class="flex items-center hover:bg-blue-100 cursor-pointer duration-200 rounded-lg px-3 py-2.5 gap-2.5 text-gray-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-4 shrink-0"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
+                  />
+                </svg>
+                Notifications
+              </li>
+              <li
+                class="flex items-center hover:bg-blue-100 cursor-pointer duration-200 rounded-lg px-3 py-2.5 gap-2.5 text-gray-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-4 shrink-0"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  />
+                </svg>
+                Settings
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h2
+              class="text-gray-400 text-[11px] uppercase tracking-widest mb-2"
+            >
+              Account
+            </h2>
+            <ul class="text-[14px] flex flex-col gap-0.5">
+              <li
+                class="flex items-center hover:bg-blue-100 cursor-pointer duration-200 rounded-lg px-3 py-2.5 gap-2.5 text-gray-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-4 shrink-0"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"
+                  />
+                </svg>
+                Sign in
+              </li>
+              <li
+                class="flex items-center hover:bg-blue-100 cursor-pointer duration-200 rounded-lg px-3 py-2.5 gap-2.5 text-gray-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-4 shrink-0"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"
+                  />
+                </svg>
+                Sign out
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="flex flex-col flex-1 overflow-hidden min-w-0">
+        <nav
+          class="w-full h-16 md:h-20 px-4 md:px-6 border-b border-gray-200 bg-white shrink-0"
+        >
+          <div class="flex h-full justify-between items-center gap-3">
+            <div class="flex items-center gap-3">
+              <button
+                id="open-btn"
+                class="md:hidden p-2 rounded-lg hover:bg-gray-100 duration-200 text-gray-600"
+                aria-label="Open menu"
+                aria-expanded="false"
+                aria-controls="mobile-nav"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  class="size-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"
+                  />
+                </svg>
+              </button>
+              <h1 class="font-bold text-base md:text-lg">Dashboard</h1>
+            </div>
+
+            <div class="flex gap-2 md:gap-3 items-center">
+              <div
+                class="hidden md:flex px-4 py-2 text-sm shadow-[0_0_6px_rgba(0,0,0,0.1)] items-center gap-2 rounded-lg bg-white"
+              >
+                <i
+                  class="fa-solid fa-magnifying-glass text-gray-400 text-xs"
+                ></i>
+                <input
+                  class="outline-none text-gray-600 w-44 text-sm"
+                  placeholder="Search campaigns"
+                  type="text"
+                />
+              </div>
+              <button
+                class="bg-blue-700 hover:bg-blue-800 duration-300 px-3 md:px-5 py-2 font-bold text-white rounded-lg text-xs md:text-sm whitespace-nowrap"
+              >
+                + New Ad
+              </button>
+            </div>
+          </div>
+        </nav>
+
+        <main class="flex-1 overflow-y-auto p-4 md:p-6 bg-gray-50">
+          <div class="grid grid-cols-2 gap-6 w-full max-sm:grid-cols-1">
+            <div
+              class="p-5 rounded-2xl bg-white border border-gray-200 shadow-sm"
+            >
+              <form action="POST">
+                <div class="flex">
+                  <h1 class="font-bold flex items-center justify-center">
+                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Ad brief
+                  </h1>
+                </div>
+                <div class="font-semibold text-sm opacity-50 mb-5">
+                  <p>Describe your product. AI will craft variants.</p>
+                </div>
+                <div class="mb-4">
+                  <label for="prod-service" class="font-semibold text-sm"
+                    >Product/service</label
+                  ><br />
+                  <input
+                    type="text"
+                    class="border border-gray-200 font-semibold text-sm rounded-md pl-3 py-2 w-full focus:outline-blue-500 shadow-sm"
+                    name="prod-service"
+                    id="prod-service"
+                    placeholder="e.g. Lightweight running snickers"
+                  />
+                </div>
+                <div class="mb-4">
+                  <label for="audience" class="font-semibold text-sm"
+                    >Target audience</label
+                  ><br />
+                  <input
+                    type="text"
+                    class="border border-gray-200 font-semibold text-sm rounded-md pl-3 py-2 w-full focus:outline-blue-500 shadow-sm"
+                    name="audience"
+                    id="audience"
+                    placeholder="e.g. Urban commuters aged 25-40"
+                  />
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label for="tone" class="font-semibold text-sm">Tone</label
+                    ><br />
+                    <select
+                      name="tone"
+                      id="tone"
+                      class="border border-gray-200 cursor-pointer font-semibold text-sm rounded-md pl-3 py-2 w-full shadow-sm"
+                    >
+                      <option
+                        value="friendly"
+                        class="cursor-pointer"
+                      >
+                        Friendly
+                      </option>
+                      <option
+                        value="playful"
+                        class="cursor-pointer"
+                      >
+                        Playful
+                      </option>
+                      <option
+                        value="stylish"
+                        class="cursor-pointer"
+                      >
+                        Stylish
+                      </option>
+                      <option
+                        value="bold"
+                        class="cursor-pointer"
+                      >
+                        Bold
+                      </option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="platform" class="font-semibold text-sm"
+                      >Platform</label
+                    ><br />
+                    <select
+                      name="platform"
+                      id="platform"
+                      class="border border-gray-200 cursor-pointer font-semibold text-sm rounded-md pl-3 py-2 w-full focus:outline-blue-500 shadow-sm"
+                    >
+                      <option value="friendly">Meta</option>
+                      <option value="tiktok">Tiktok</option>
+                      <option value="linkedin">LinkedIn</option>
+                      <option value="youtube">Youtube</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="my-2">
+                  <label for="key-message" class="font-semibold text-sm"
+                    >Key Message (optional)</label
+                  ><br />
+                  <textarea
+                    name="key-message"
+                    placeholder="Highlight the core benefit or offer..."
+                    id="key-message"
+                    class="border border-gray-200 font-semibold text-sm rounded-md pl-3 py-2 w-full focus:outline-blue-500 shadow-sm"
+                  ></textarea>
+                </div>
+                <input
+                  type="submit"
+                  value="Generate ads"
+                  class="cursor-pointer hover:bg-blue-800 bg-blue-700 text-gray-100 font-semibold text-sm rounded-md pl-3 py-2 w-full focus:outline-blue-500 shadow-md"
+                />
+              </form>
+            </div>
+            <div class="grid grid-cols-1 grid-rows-[1fr_6fr_3fr]">
+              <h1 class="font-bold">Generated variants</h1>
+              <div
+                class="bg-white border border-gray-200 shadow-sm flex items-center justify-center rounded-2xl"
+              >
+                <div class="w-full">
+                  <div class="flex items-center justify-center w-full">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="size-6"
+                      width="35px"
+                      height="35px"
+                      style="border-radius: 2em"
+                      class="bg-blue-600 text-white p-1 min-w-[35px]"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a2.625 2.625 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a2.625 2.625 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5ZM16.5 15a.75.75 0 0 1 .712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 0 1 0 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 0 1-1.422 0l-.395-1.183a1.5 1.5 0 0 0-.948-.948l-1.183-.395a.75.75 0 0 1 0-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0 1 16.5 15Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <h3 class="flex items-center w-full justify-center font-bold">
+                    No ads yet
+                  </h3>
+                  <p class="flex items-center justify-center w-full">
+                    Fill in the brief and hit "generate"
+                  </p>
+                </div>
+              </div>
+              <div class="">
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      const openBtn = document.getElementById("open-btn");
+      const closeBtn = document.getElementById("close-btn");
+      const mobileNav = document.getElementById("mobile-nav");
+      const overlay = document.getElementById("overlay");
+
+      function openMenu() {
+        mobileNav.classList.remove("-translate-x-full");
+        mobileNav.classList.add("translate-x-0");
+        overlay.classList.remove("opacity-0", "pointer-events-none");
+        overlay.classList.add("opacity-100");
+
+        openBtn.setAttribute("aria-expanded", "true");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeMenu() {
+        mobileNav.classList.remove("translate-x-0");
+        mobileNav.classList.add("-translate-x-full");
+        overlay.classList.remove("opacity-100");
+        overlay.classList.add("opacity-0", "pointer-events-none");
+
+        openBtn.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      }
+
+      openBtn.addEventListener("click", openMenu);
+      closeBtn.addEventListener("click", closeMenu);
+      overlay.addEventListener("click", closeMenu);
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeMenu();
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth >= 768) closeMenu();
+      });
+    </script>
+    <script src="/nav.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
+
+

@@ -25,6 +25,10 @@ class BillingStatusView(APIView):
                 "plan": profile.plan,
                 "generations_used": profile.generations_this_month,
                 "generations_limit": profile.generation_limit,
+                "copy_used": profile.copy_generations_used,
+                "copy_limit": profile.copy_limit,
+                "image_used": profile.image_generations_used,
+                "image_limit": profile.image_limit,
                 "stripe_enabled": stripe_configured(),
                 "product": {
                     "name": "AI Ads Studio",

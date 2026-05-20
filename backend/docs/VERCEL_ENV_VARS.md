@@ -18,7 +18,8 @@ After your first deploy, add your exact hostname to `DJANGO_ALLOWED_HOSTS`, e.g.
 | `DJANGO_SECRET_KEY` | Same as local `.env` (generated secret) |
 | `DJANGO_DEBUG` | `false` |
 | `DJANGO_ALLOWED_HOSTS` | `your-project.vercel.app,.vercel.app` |
-| `SERVE_FRONTEND` | `false` (students use their own HTML) |
+| `SERVE_FRONTEND` | `false` for API-only class; **`true`** to serve product UI at `/`, `/create-ad/`, etc. |
+| `PUBLIC_APP_URL` | `https://your-project.vercel.app` (verification emails) |
 | `CORS_ALLOW_ALL` | `true` for class, or list origins in `CORS_ALLOWED_ORIGINS` |
 | `GROQ_API_KEY` | Groq API key |
 | `GROQ_MODEL` | `llama-3.3-70b-versatile` |
@@ -94,13 +95,38 @@ Invoke-RestMethod -Uri "https://ai-ads-studio-kappa.vercel.app/api/auth/register
 
 ---
 
+## Hosted product UI (`SERVE_FRONTEND=true`)
+
+1. Set **`SERVE_FRONTEND`** = `true` (exact spelling — not `truev`).
+2. Before deploy, from repo root run:
+   ```powershell
+   powershell -File backend/scripts/prepare-vercel-frontend.ps1
+   ```
+3. **Commit and push**:
+   - `backend/studio/templates/web/`
+   - `backend/studio/static/web/`
+   - `backend/frontend2/` (so Vercel build can run `build_web_templates` when Root Directory is `backend`)
+4. **Redeploy** Production (Preview env vars do not change Production until you promote or redeploy Production).
+
+Verify after deploy:
+
+```http
+GET https://your-project.vercel.app/api/
+```
+
+Look for `"serve_frontend": true`, `"web_templates_built": true`, `"frontend_root_exists": true`.
+
+Open `https://your-project.vercel.app/` — you should see the landing page, not `/docs/` or “Frontend not pulled yet”.
+
+---
+
 ## Vercel project settings
 
 | Setting | Value |
 |---------|--------|
 | Repository branch | `backend` |
-| Root directory | `backend` |
-| Framework | Other (`vercel.json` in `backend/`) |
+| Root directory | **`backend`** (recommended) — requires `backend/frontend2` committed OR use **repo root** + root `vercel.json` |
+| Framework | Other (`vercel.json` in `backend/` or repo root) |
 
 ---
 

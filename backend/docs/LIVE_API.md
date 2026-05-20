@@ -11,6 +11,36 @@ Paste each `<script>` block at the **bottom of the matching HTML file**, just be
 
 ---
 
+## Student troubleshooting
+
+| Symptom | Cause | Fix |
+|---------|--------|-----|
+| **`POST .../api/auth/register` → 404**, console: *Unexpected token '&lt;' … not valid JSON* | The path was wrong or the server rejected the URL. This project uses `APPEND_SLASH = false`; **both** `/api/auth/register` and `/api/auth/register/` now work. | Use the exact base: `https://ai-ads-studio-kappa.vercel.app/api` then `auth/register` **or** `auth/register/`. |
+| **Copy sounds like a template** (“Discover why urban love cars…”) | The server has **no working LLM key** (or the model call failed), so the API falls back to deterministic placeholder text. | On **Vercel → Project → Settings → Environment Variables**, set **`GROQ_API_KEY`** (text copy) and/or **`GROK_API_KEY`** (xAI). Redeploy after saving. |
+| **`GROK_API_KEY is not configured` (image)** | Image generation uses **xAI Grok** only. | Set **`GROK_API_KEY`** on Vercel (same as **`XAI_API_KEY`** from [console.x.ai](https://console.x.ai)). Optional: `GROK_IMAGE_MODEL=grok-imagine-image-quality`. |
+| **401 / 403 on protected routes** | Missing or expired JWT. | Register/login, store `access_token`, send `Authorization: Bearer …`. |
+
+---
+
+### Safer `fetch` + JSON (avoids the `&lt;!DOCTYPE` JSON error)
+
+If the server returns HTML (e.g. a 404 page), `res.json()` throws. Use something like this in your `api()` helper:
+
+```javascript
+const text = await res.text();
+let data = {};
+try {
+  data = text ? JSON.parse(text) : {};
+} catch (_) {
+  throw new Error(
+    res.status + " " + res.statusText + " — server returned non-JSON (check API path and base URL)."
+  );
+}
+if (!res.ok) throw new Error(data.error || data.detail || text.slice(0, 200));
+```
+
+---
+
 ## HTML IDs used in this doc
 
 | Page file | Section | IDs / selectors |
@@ -458,6 +488,21 @@ If you paste **more than one** block on the same page, add this **once** and del
 </script>
 ```
 
+### `POST /api/auth/resend-verify/` — Resend verification email
+
+**Body:** `{ "email": "user@example.edu" }`  
+**Note:** Returns a generic message when the account does not exist or verification is off (no email enumeration).
+
+```javascript
+await fetch(API_BASE + "/auth/resend-verify/", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email: "user@example.edu" }),
+});
+```
+
+**Web:** Links in email use `GET /verify-email/?token=…` (hosted template); API clients can still POST to `/api/auth/verify-email/` with JSON.
+
 ---
 
 ## Dashboard
@@ -809,6 +854,12 @@ If you paste **more than one** block on the same page, add this **once** and del
   })();
 </script>
 ```
+
+---
+
+### `GET /api/ad-briefs/{brief_id}/variants/pdf/` — Download all variants as PDF
+
+Authenticated. Returns `application/pdf` with every variant headline/body/CTA plus a footer that clarifies content is copy-paste only (not auto-published). Returns **404** if the brief has no variants yet — call `POST …/generate/` first.
 
 ---
 

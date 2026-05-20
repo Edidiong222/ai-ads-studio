@@ -2,6 +2,7 @@ import os
 import random
 import uuid
 from decimal import Decimal
+from pathlib import Path
 
 from django.conf import settings
 from django.db.models import Q
@@ -46,9 +47,11 @@ from .services.moderation import (
     moderate_text,
     moderate_variant,
 )
+from .services.ai_ops import log_ai_operation
 from .services.pdf import generate_pdf
 from .services.storage import upload_file_to_storage
-from .services.usage import check_generation_quota, record_generation
+from .services.usage import check_copy_quota, record_copy_generation
+from .services.variants_pdf import variants_pdf_response
 
 
 def _err(message: str, status_code: int) -> Response:
@@ -67,7 +70,21 @@ class HealthView(APIView):
             "version": os.getenv("VERCEL_GIT_COMMIT_SHA", "local")[:12],
             "database": "unknown",
             "migrations": "unknown",
-            "ai": "configured" if settings.GROQ_API_KEY else "fallback_templates",
+            "ai": (
+                "grok"
+                if getattr(settings, "GROK_API_KEY", "")
+                else ("groq" if settings.GROQ_API_KEY else "fallback_templates")
+            ),
+            "grok_image_ready": bool(getattr(settings, "GROK_API_KEY", "")),
+            "groq_copy_ready": bool(getattr(settings, "GROQ_API_KEY", "")),
+            "serve_frontend": getattr(settings, "SERVE_FRONTEND", False),
+            "frontend_root": str(getattr(settings, "FRONTEND_ROOT", "")),
+            "frontend_root_exists": getattr(settings, "FRONTEND_ROOT", Path()).is_dir()
+            if hasattr(settings, "FRONTEND_ROOT")
+            else False,
+            "web_templates_built": (
+                Path(settings.BASE_DIR) / "studio" / "templates" / "web" / "landing.html"
+            ).is_file(),
         }
         try:
             connection.ensure_connection()
@@ -151,7 +168,7 @@ class ProjectGenerateView(APIView):
         user_id = getattr(request.user, "id", None)
         lock_key = f"project:{project_id}"
         if request.user.is_authenticated:
-            check_generation_quota(request.user)
+            check_copy_quota(request.user)
             if not acquire_generation_lock(user_id, lock_key):
                 return _err(
                     "Generation already in progress. Please wait.",
@@ -229,7 +246,7 @@ class ProjectGenerateView(APIView):
             )
 
             if request.user.is_authenticated:
-                record_generation(request.user)
+                record_copy_generation(request.user)
                 audit(request.user, "project.generate", "project", project_id)
                 save_generation_record(
                     request.user,
@@ -308,7 +325,7 @@ class AdBriefGenerateView(APIView):
 
     @extend_schema(summary="Generate ad variants from brief", responses=AdVariantSerializer(many=True))
     def post(self, request, brief_id):
-        check_generation_quota(request.user)
+        check_copy_quota(request.user)
         user_id = request.user.id
         lock_key = f"brief:{brief_id}"
         if not acquire_generation_lock(user_id, lock_key):
@@ -333,6 +350,14 @@ class AdBriefGenerateView(APIView):
             try:
                 variants_data = generate_ad_variants(context)
             except LLMServiceError as exc:
+                log_ai_operation(
+                    operation="brief_generate_variants",
+                    user_id=request.user.id,
+                    status="error",
+                    brief_id=str(brief_id),
+                    error_type="LLMServiceError",
+                    message=str(exc)[:500],
+                )
                 log_generation_failure(request.user, GenerationRecord.SOURCE_BRIEF, brief_id, str(exc))
                 return _err(f"Variant generation unavailable: {exc}", status.HTTP_503_SERVICE_UNAVAILABLE)
 
@@ -341,6 +366,14 @@ class AdBriefGenerateView(APIView):
             for item in variants_data:
                 ok, reason = moderate_variant(item)
                 if not ok:
+                    log_ai_operation(
+                        operation="brief_generate_variants",
+                        user_id=request.user.id,
+                        status="error",
+                        brief_id=str(brief_id),
+                        error_type="moderation_variant",
+                        message=(reason or "")[:500],
+                    )
                     log_generation_failure(request.user, GenerationRecord.SOURCE_BRIEF, brief_id, reason or "")
                     return _err(reason or "Content blocked.", status.HTTP_400_BAD_REQUEST)
                 variant = AdVariant.objects.create(
@@ -352,7 +385,7 @@ class AdBriefGenerateView(APIView):
                 )
                 created.append(variant)
 
-            record_generation(request.user, count=1)
+            record_copy_generation(request.user, count=1)
             audit(request.user, "ad.generate", "ad_brief", brief_id, {"variants": len(created)})
             save_generation_record(
                 request.user,
@@ -363,6 +396,13 @@ class AdBriefGenerateView(APIView):
                 variant_count=len(created),
             )
             log_generation_success(request.user, GenerationRecord.SOURCE_BRIEF, brief_id, len(created))
+            log_ai_operation(
+                operation="brief_generate_variants",
+                user_id=request.user.id,
+                status="ok",
+                brief_id=str(brief_id),
+                variant_count=len(created),
+            )
             serializer = AdVariantSerializer(created, many=True)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         finally:
@@ -376,6 +416,24 @@ class AdBriefVariantsListView(generics.ListAPIView):
     def get_queryset(self):
         brief = get_object_or_404(AdBrief, id=self.kwargs["brief_id"])
         return AdVariant.objects.filter(brief=brief)
+
+
+class AdBriefVariantsPdfView(APIView):
+    """GET PDF of all variants for a brief (share with team / class)."""
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    @extend_schema(summary="Download variants as PDF", responses={200: "application/pdf"})
+    def get(self, request, brief_id):
+        brief = get_object_or_404(
+            AdBrief.objects.filter(Q(owner=request.user) | Q(owner__isnull=True)),
+            id=brief_id,
+        )
+        variants = list(AdVariant.objects.filter(brief=brief).order_by("created_at", "id"))
+        if not variants:
+            return _err("No variants yet. Generate variants first.", status.HTTP_404_NOT_FOUND)
+        filename = f"ad-variants-{brief_id}.pdf"
+        return variants_pdf_response(brief, variants, filename)
 
 
 class DashboardView(APIView):

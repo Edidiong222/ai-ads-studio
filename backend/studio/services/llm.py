@@ -115,14 +115,32 @@ Return strictly as JSON:
         raise LLMServiceError(str(exc)) from exc
 
 
+def _call_ai_json(prompt: str) -> dict:
+    from .grok import GrokServiceError, chat_json, is_configured
+
+    if is_configured():
+        try:
+            return chat_json(
+                "You are a JSON-only ad copy API. Respond with valid JSON only.",
+                prompt,
+            )
+        except GrokServiceError as exc:
+            raise LLMServiceError(str(exc)) from exc
+    if settings.GROQ_API_KEY:
+        return _call_groq_json(prompt)
+    raise LLMServiceError("No AI API key configured (GROK_API_KEY or GROQ_API_KEY).")
+
+
 def generate_ad_variants(brief_context: dict, variant_count: int | None = None) -> list[dict]:
     count = variant_count or _variant_count()
-    if not settings.GROQ_API_KEY:
+    from .grok import is_configured
+
+    if not is_configured() and not settings.GROQ_API_KEY:
         return _fallback_variants(brief_context, count)
 
     prompt = build_variants_prompt(brief_context, count)
     try:
-        data = _with_timeout(_call_groq_json, prompt)
+        data = _with_timeout(_call_ai_json, prompt)
         variants = normalize_variants(
             data.get("variants", []),
             min_count=3,
